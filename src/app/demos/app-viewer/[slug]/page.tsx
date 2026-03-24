@@ -20,7 +20,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const app = APPS[slug];
   return {
-    title: app ? `${app.name} — App Demo | Noviq` : "App Demo | Noviq",
+    title: app ? `${app.name} - App Demo | Noviq` : "App Demo | Noviq",
     description: app ? `Sample ${app.type.toLowerCase()} app built by Noviq.` : "",
   };
 }
@@ -62,7 +62,7 @@ export default async function AppViewerPage({
         {/* notch */}
         <div className="absolute left-1/2 top-0 z-10 h-7 w-28 -translate-x-1/2 rounded-b-2xl bg-[#111]" />
 
-        {/* screen — interactive, user can scroll */}
+        {/* screen - interactive, user can scroll */}
         <div
           className="overflow-y-auto overflow-x-hidden rounded-[2.4rem] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           style={{ width: "320px", height: "693px" }}

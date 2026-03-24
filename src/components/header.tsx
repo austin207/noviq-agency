@@ -69,7 +69,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
-          {/* CTA — hidden on very small screens when menu toggle is needed */}
+          {/* CTA - hidden on very small screens when menu toggle is needed */}
           <a
             href={WHATSAPP_URL}
             className="hidden rounded-full border border-outline bg-transparent px-5 py-2 text-sm text-primary transition-all duration-200 hover:border-accent hover:text-accent sm:inline-flex"
@@ -77,7 +77,7 @@ export function Header() {
             Start a project
           </a>
 
-          {/* hamburger — mobile only */}
+          {/* hamburger - mobile only */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="flex h-10 w-10 items-center justify-center rounded-lg text-primary md:hidden"

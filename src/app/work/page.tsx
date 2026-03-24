@@ -5,7 +5,7 @@ import { Footer } from "@/components/footer";
 import { FadeIn } from "@/components/fade-in";
 
 export const metadata: Metadata = {
-  title: "Our Work — Noviq",
+  title: "Our Work - Noviq",
   description:
     "Sample websites and apps built by Noviq for clinics, restaurants, salons, and more.",
 };
@@ -118,7 +118,7 @@ export default function WorkPage() {
               <div>
                 <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Our work</h1>
                 <p className="mt-2 max-w-md text-secondary">
-                  Live demos — click any preview to explore the full site or app.
+                  Live demos - click any preview to explore the full site or app.
                 </p>
               </div>
               <Link href="/#pricing" className="text-sm text-accent transition-colors hover:text-accent-hover">
@@ -163,7 +163,7 @@ export default function WorkPage() {
           <FadeIn delay={0.5}>
             <div className="mt-20 text-center">
               <p className="text-sm text-muted">
-                These are samples. Your site or app gets built from scratch — your brand, your content, your business.
+                These are samples. Your site or app gets built from scratch - your brand, your content, your business.
               </p>
             </div>
           </FadeIn>

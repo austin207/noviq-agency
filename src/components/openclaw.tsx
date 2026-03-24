@@ -247,7 +247,7 @@ export function OpenClaw() {
         <FadeIn delay={0.05}>
           <div className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
             <p className="max-w-lg text-secondary">
-              Done-for-you AI assistant on WhatsApp or Telegram — answers
+              Done-for-you AI assistant on WhatsApp or Telegram - answers
               customer queries, manages bookings, runs automations. We deploy,
               configure, and maintain it.
             </p>
@@ -272,7 +272,7 @@ export function OpenClaw() {
               <span className="text-secondary">
                 {fmt(AMC[currency.toLowerCase() as "inr" | "usd"], currency)}/mo
               </span>{" "}
-              — API monitoring, prompt updates, uptime checks.
+              - API monitoring, prompt updates, uptime checks.
             </p>
             <a
               href={WHATSAPP_URL}

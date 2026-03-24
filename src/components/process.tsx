@@ -4,7 +4,7 @@ const STEPS = [
   {
     num: "01",
     title: "Brief",
-    body: "You tell us what you need — pages, features, timeline. We scope it and send a fixed quote. No surprises.",
+    body: "You tell us what you need - pages, features, timeline. We scope it and send a fixed quote. No surprises.",
   },
   {
     num: "02",

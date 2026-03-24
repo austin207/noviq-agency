@@ -10,7 +10,7 @@ const outfit = Outfit({
 
 export const metadata: Metadata = {
   title: {
-    default: "Noviq — Web Development Studio | Kochi, India",
+    default: "Noviq - Web Development Studio | Kochi, India",
     template: "%s | Noviq",
   },
   description:
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   publisher: "Noviq",
   formatDetection: { telephone: true, email: true, address: true },
   openGraph: {
-    title: "Noviq — Web Development Studio",
+    title: "Noviq - Web Development Studio",
     description:
       "Websites, mobile apps, and Instagram content for local businesses in Kochi, Kerala.",
     url: "https://noviq.website",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Noviq — Web Development Studio",
+    title: "Noviq - Web Development Studio",
     description:
       "Websites, apps, and Instagram content for businesses in Kochi.",
   },

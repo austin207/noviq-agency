@@ -15,9 +15,9 @@ const WEB_PACKAGES = [
 ];
 
 const APP_PACKAGES = [
-  { name: "Android App", price: 100_000, desc: "Flutter app — browse, order, track, push notifications, Razorpay", delivery: "6–8 weeks" },
+  { name: "Android App", price: 100_000, desc: "Flutter app - browse, order, track, push notifications, Razorpay", delivery: "6–8 weeks" },
   { name: "Android + iOS App", price: 130_000, desc: "Everything above + iOS build and App Store submission", delivery: "8–10 weeks" },
-  { name: "Admin Dashboard", price: 35_000, desc: "Owner app — manage orders, update status, sales summary", delivery: "3–4 weeks", isAddon: true },
+  { name: "Admin Dashboard", price: 35_000, desc: "Owner app - manage orders, update status, sales summary", delivery: "3–4 weeks", isAddon: true },
 ];
 
 const BUNDLES = [
@@ -224,7 +224,7 @@ function StepReels({ count, onChange }: { count: number; onChange: (n: number) =
         {REEL_PRESETS.map((n) => (
           <button key={n} onClick={() => onChange(n)}
             className={`rounded-full border px-4 py-2 text-xs transition-colors ${count === n ? "border-accent/60 bg-accent/10 text-accent" : "border-outline text-secondary hover:text-primary"}`}>
-            {n}/mo — {inr(n * REEL_PRICE)}
+            {n}/mo - {inr(n * REEL_PRICE)}
           </button>
         ))}
       </div>
@@ -401,8 +401,8 @@ const STEP_TITLES: Record<string, { title: string; sub: string }[]> = {
   website: [
     { title: "What do you need?", sub: "Choose your project type" },
     { title: "Pick a website package", sub: "All include domain, hosting, and SSL" },
-    { title: "Any extras?", sub: "Toggle what you need — prices are one-time unless marked" },
-    { title: "Instagram Reels?", sub: "₹950 per Reel (~$10) — AI-assisted production" },
+    { title: "Any extras?", sub: "Toggle what you need - prices are one-time unless marked" },
+    { title: "Instagram Reels?", sub: "₹950 per Reel (~$10) - AI-assisted production" },
     { title: "Hosting & maintenance", sub: "Keep your site fast, secure and updated" },
     { title: "Your quote", sub: "Full breakdown of what you'll pay" },
   ],
@@ -410,15 +410,15 @@ const STEP_TITLES: Record<string, { title: string; sub: string }[]> = {
     { title: "What do you need?", sub: "Choose your project type" },
     { title: "Choose your app", sub: "Apps require a Business website backend (included in quote)" },
     { title: "Any extras?", sub: "Toggle what you need" },
-    { title: "Instagram Reels?", sub: "₹950 per Reel (~$10) — AI-assisted production" },
+    { title: "Instagram Reels?", sub: "₹950 per Reel (~$10) - AI-assisted production" },
     { title: "Hosting & maintenance", sub: "Keep your site fast, secure and updated" },
     { title: "Your quote", sub: "Full breakdown of what you'll pay" },
   ],
   bundle: [
     { title: "What do you need?", sub: "Choose your project type" },
-    { title: "Pick a bundle", sub: "Website + app together — discounted" },
+    { title: "Pick a bundle", sub: "Website + app together - discounted" },
     { title: "Any extras?", sub: "Toggle what you need" },
-    { title: "Instagram Reels?", sub: "₹950 per Reel (~$10) — AI-assisted production" },
+    { title: "Instagram Reels?", sub: "₹950 per Reel (~$10) - AI-assisted production" },
     { title: "Hosting & maintenance", sub: "Keep your site fast, secure and updated" },
     { title: "Your quote", sub: "Full breakdown of what you'll pay" },
   ],
@@ -445,12 +445,12 @@ export function Pricing() {
 
   const quoteUrl = useMemo(() => {
     const lines: string[] = [];
-    if (category === "website") lines.push(`Website: ${WEB_PACKAGES[webIndex].name} — ${inr(WEB_PACKAGES[webIndex].price)}`);
-    else if (category === "app") { lines.push(`App: ${APP_PACKAGES[appIndex].name} — ${inr(APP_PACKAGES[appIndex].price)}`); if (adminDash) lines.push("+ Admin Dashboard — ₹35,000"); }
-    else lines.push(`Bundle: ${BUNDLES[bundleIndex].name} — ${inr(BUNDLES[bundleIndex].price)}`);
-    addons.forEach((i) => { const a = ADDONS[i]; lines.push(`Add-on: ${a.name} — ${inr(a.price)}${a.suffix}`); });
-    if (reels > 0) lines.push(`Reels: ${reels}/mo — ${inr(reels * REEL_PRICE)}/mo`);
-    if (AMC_PLANS[amcIndex].price > 0) lines.push(`AMC: ${AMC_PLANS[amcIndex].name} — ${inr(AMC_PLANS[amcIndex].price)}/mo`);
+    if (category === "website") lines.push(`Website: ${WEB_PACKAGES[webIndex].name} - ${inr(WEB_PACKAGES[webIndex].price)}`);
+    else if (category === "app") { lines.push(`App: ${APP_PACKAGES[appIndex].name} - ${inr(APP_PACKAGES[appIndex].price)}`); if (adminDash) lines.push("+ Admin Dashboard - ₹35,000"); }
+    else lines.push(`Bundle: ${BUNDLES[bundleIndex].name} - ${inr(BUNDLES[bundleIndex].price)}`);
+    addons.forEach((i) => { const a = ADDONS[i]; lines.push(`Add-on: ${a.name} - ${inr(a.price)}${a.suffix}`); });
+    if (reels > 0) lines.push(`Reels: ${reels}/mo - ${inr(reels * REEL_PRICE)}/mo`);
+    if (AMC_PLANS[amcIndex].price > 0) lines.push(`AMC: ${AMC_PLANS[amcIndex].name} - ${inr(AMC_PLANS[amcIndex].price)}/mo`);
     return WHATSAPP_URL.includes("wa.me") ? `${WHATSAPP_URL.split("?")[0]}?text=${encodeURIComponent(lines.join("\n"))}` : "#contact";
   }, [category, webIndex, appIndex, adminDash, bundleIndex, addons, reels, amcIndex]);
 

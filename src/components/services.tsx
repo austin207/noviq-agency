@@ -13,7 +13,7 @@ const SERVICES = [
     num: "02",
     title: "Mobile Apps",
     description:
-      "Flutter apps for Android and iOS — delivery tracking, push notifications, customer accounts. One codebase, both platforms.",
+      "Flutter apps for Android and iOS - delivery tracking, push notifications, customer accounts. One codebase, both platforms.",
     price: "From ₹75,000",
     span: "md:col-span-2",
   },
@@ -21,7 +21,7 @@ const SERVICES = [
     num: "03",
     title: "Instagram Content",
     description:
-      "Reels scripted, edited, and posted. AI-assisted production — you send raw footage, we handle the rest.",
+      "Reels scripted, edited, and posted. AI-assisted production - you send raw footage, we handle the rest.",
     price: "₹950 per Reel",
     span: "md:col-span-2",
   },

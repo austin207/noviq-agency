@@ -48,7 +48,7 @@ export function Hero() {
         >
           <span className="h-px w-8 bg-accent" />
           <span className="text-xs uppercase tracking-[0.2em] text-secondary">
-            Web development studio — Kochi
+            Web development studio - Kochi
           </span>
         </motion.div>
 

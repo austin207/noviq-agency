@@ -3,11 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Spice Garden — Demo | Noviq",
+  title: "Spice Garden - Demo | Noviq",
   description: "Sample restaurant website built by Noviq.",
 };
 
-/* immersive dark — full-bleed hero, menu with category headers, featured dishes, reservation CTA */
+/* immersive dark - full-bleed hero, menu with category headers, featured dishes, reservation CTA */
 
 const FEATURED = [
   { dish: "Kerala Fish Curry", desc: "Fresh karimeen in coconut gravy, the way it's meant to taste.", price: "₹350" },
@@ -51,7 +51,7 @@ export default function RestaurantDemo() {
         &larr; Noviq demo
       </Link>
 
-      {/* nav — transparent, blends into hero */}
+      {/* nav - transparent, blends into hero */}
       <nav className="absolute left-0 right-0 top-0 z-30">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
           <span className="text-xl font-light tracking-widest uppercase">
@@ -110,7 +110,7 @@ export default function RestaurantDemo() {
         </div>
       </section>
 
-      {/* featured dishes — large cards */}
+      {/* featured dishes - large cards */}
       <section className="py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-6">
           <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">

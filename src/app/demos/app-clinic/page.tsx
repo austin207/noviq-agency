@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-export const metadata: Metadata = { title: "MedBook — Clinic Booking App Demo", description: "Sample clinic booking app built with Flutter by Noviq. Doctor search, slot booking, push notifications." };
+export const metadata: Metadata = { title: "MedBook - Clinic Booking App Demo", description: "Sample clinic booking app built with Flutter by Noviq. Doctor search, slot booking, push notifications." };
 
 export default function ClinicApp() {
   const doctors = [

@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "MedCare Plus — Demo | Noviq",
+  title: "MedCare Plus - Demo | Noviq",
   description: "Sample general clinic website built by Noviq.",
 };
 
@@ -21,7 +21,7 @@ const SERVICES = [
 const STEPS = [
   { num: "1", title: "Walk in or book", desc: "No referral needed. Book online or just show up." },
   { num: "2", title: "See a doctor", desc: "Average wait time under 15 minutes." },
-  { num: "3", title: "Get treated", desc: "Prescription, lab tests, or referral — all handled in-house." },
+  { num: "3", title: "Get treated", desc: "Prescription, lab tests, or referral - all handled in-house." },
 ];
 
 const DOCTORS = [
@@ -43,7 +43,7 @@ export default function ClinicDemo() {
 
       {/* emergency banner */}
       <div className="text-center text-xs font-medium py-2.5" style={{ background: "#059669", color: "#FFFFFF" }}>
-        Emergency? Call +91 98765 43210 — we&apos;re open 24/7 for urgent care.
+        Emergency? Call +91 98765 43210 - we&apos;re open 24/7 for urgent care.
       </div>
 
       {/* nav */}
@@ -73,7 +73,7 @@ export default function ClinicDemo() {
             Healthcare without<br />the hospital hassle.
           </h1>
           <p className="mx-auto mt-5 max-w-lg leading-relaxed" style={{ color: "#6B8F71" }}>
-            Walk-in consultations, lab tests, pharmacy, and specialist care — all under one roof.
+            Walk-in consultations, lab tests, pharmacy, and specialist care - all under one roof.
             Open 7 days. No queues, no runaround.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
@@ -123,7 +123,7 @@ export default function ClinicDemo() {
         </div>
       </section>
 
-      {/* services — 3x2 icon grid */}
+      {/* services - 3x2 icon grid */}
       <section id="services" className="py-16 sm:py-24">
         <div className="mx-auto max-w-5xl px-6">
           <div className="text-center">
@@ -142,7 +142,7 @@ export default function ClinicDemo() {
         </div>
       </section>
 
-      {/* doctors — horizontal cards */}
+      {/* doctors - horizontal cards */}
       <section id="doctors" className="py-16" style={{ background: "#FFFFFF" }}>
         <div className="mx-auto max-w-5xl px-6">
           <span className="text-xs font-medium uppercase tracking-widest" style={{ color: "#059669" }}>Our team</span>

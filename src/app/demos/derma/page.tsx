@@ -3,11 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "GlowDerm Skin & Hair — Demo | Noviq",
+  title: "GlowDerm Skin & Hair - Demo | Noviq",
   description: "Sample dermatologist website built by Noviq.",
 };
 
-/* editorial/magazine layout — large type, alternating sections, asymmetric grid */
+/* editorial/magazine layout - large type, alternating sections, asymmetric grid */
 
 const TREATMENTS = [
   { title: "Acne & Scars", desc: "Clinical peels, laser resurfacing, targeted therapy." },
@@ -35,7 +35,7 @@ export default function DermaDemo() {
         &larr; Noviq demo
       </Link>
 
-      {/* minimal nav — just wordmark and CTA */}
+      {/* minimal nav - just wordmark and CTA */}
       <nav className="py-5">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6">
           <span className="text-xl font-light tracking-tight">
@@ -47,7 +47,7 @@ export default function DermaDemo() {
         </div>
       </nav>
 
-      {/* editorial hero — oversized type */}
+      {/* editorial hero - oversized type */}
       <section className="pb-16 pt-12 sm:pb-24 sm:pt-20">
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
@@ -97,7 +97,7 @@ export default function DermaDemo() {
         </div>
       </div>
 
-      {/* treatments — asymmetric 2-col grid */}
+      {/* treatments - asymmetric 2-col grid */}
       <section id="treatments" className="py-16">
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2">
@@ -118,7 +118,7 @@ export default function DermaDemo() {
         </div>
       </section>
 
-      {/* doctor — full-width tinted block */}
+      {/* doctor - full-width tinted block */}
       <section className="py-16" style={{ background: "#F5EDE6" }}>
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-5">
@@ -168,7 +168,7 @@ export default function DermaDemo() {
             </h2>
             <p className="mx-auto mt-4 leading-relaxed" style={{ color: "#8C7060" }}>
               Every treatment plan starts with a proper diagnosis. We use
-              dermoscopy, patch testing, and clinical-grade tools — not
+              dermoscopy, patch testing, and clinical-grade tools - not
               guesswork. If something won&apos;t work for your skin, we&apos;ll
               tell you.
             </p>

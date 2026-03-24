@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "SmileCraft Dental — Demo | Noviq",
+  title: "SmileCraft Dental - Demo | Noviq",
   description: "Sample dental clinic website built by Noviq.",
 };
 
@@ -20,7 +20,7 @@ const SERVICES = [
   {
     num: "01",
     title: "General Dentistry",
-    desc: "Cleanings, fillings, check-ups — the essentials done gently and on time.",
+    desc: "Cleanings, fillings, check-ups - the essentials done gently and on time.",
   },
   {
     num: "02",
