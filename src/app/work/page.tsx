@@ -62,8 +62,9 @@ function WebPreview({ project }: { project: (typeof WEBSITES)[number] }) {
 /* ─── app preview (phone frame) ────────────────────── */
 
 function PhonePreview({ app }: { app: (typeof APPS)[number] }) {
+  const viewerHref = `/demos/app-viewer/${app.slug.replace("/demos/", "")}`;
   return (
-    <Link href={app.slug} className="group flex flex-col items-center">
+    <Link href={viewerHref} className="group flex flex-col items-center">
       {/* phone shell */}
       <div className="relative overflow-hidden rounded-[2.5rem] border-[3px] border-[#333] bg-[#111] p-1.5 shadow-xl transition-all duration-300 group-hover:border-accent/40">
         {/* inner screen */}
