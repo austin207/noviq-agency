@@ -151,7 +151,7 @@ export default function WorkPage() {
             </div>
           </FadeIn>
 
-          <div className="mt-8 grid grid-cols-2 justify-items-center gap-6 sm:grid-cols-4 lg:gap-10">
+          <div className="mt-8 grid grid-cols-1 justify-items-center gap-10 min-[480px]:grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 lg:gap-10">
             {APPS.map((app, i) => (
               <FadeIn key={app.slug} delay={0.14 + i * 0.06}>
                 <PhonePreview app={app} />
