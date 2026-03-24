@@ -69,12 +69,12 @@ function Toggle({ checked, onChange }: { checked: boolean; onChange: () => void 
       role="switch"
       aria-checked={checked}
       onClick={onChange}
-      className={`relative h-7 w-12 flex-shrink-0 rounded-full transition-colors duration-200 ${
-        checked ? "bg-accent" : "bg-outline"
+      className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full transition-colors duration-200 ${
+        checked ? "bg-accent" : "bg-[#333]"
       }`}
     >
       <span
-        className={`absolute top-0.5 h-6 w-6 rounded-full bg-white shadow-sm transition-transform duration-200 ${
+        className={`pointer-events-none inline-block h-5 w-5 translate-y-0.5 rounded-full bg-white shadow transition-transform duration-200 ${
           checked ? "translate-x-[22px]" : "translate-x-0.5"
         }`}
       />
@@ -294,17 +294,28 @@ function StepReels({
   );
 }
 
+const DOMAIN_DURATIONS = [
+  { label: "1 year", years: 1 },
+  { label: "2 years", years: 2 },
+  { label: "5 years", years: 5 },
+];
+
 function StepMaintenance({
   amcIndex,
   setAmcIndex,
   domainCost,
   setDomainCost,
+  domainYears,
+  setDomainYears,
 }: {
   amcIndex: number;
   setAmcIndex: (i: number) => void;
   domainCost: number;
   setDomainCost: (n: number) => void;
+  domainYears: number;
+  setDomainYears: (n: number) => void;
 }) {
+  const perYear = domainYears > 0 ? Math.round(domainCost / domainYears) : 0;
   return (
     <div>
       <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-muted">
@@ -332,22 +343,55 @@ function StepMaintenance({
 
       <div className="mt-8">
         <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-muted">
-          Domain
+          Domain registration
         </span>
-        <div className="mt-4 flex items-center justify-between gap-4">
+
+        {/* duration selector */}
+        <div className="mt-4">
+          <span className="text-sm font-semibold">Registration duration</span>
+          <div className="mt-2 flex gap-2">
+            {DOMAIN_DURATIONS.map((d) => (
+              <button
+                key={d.years}
+                onClick={() => setDomainYears(d.years)}
+                className={`rounded-lg border px-4 py-2 text-xs transition-colors ${
+                  domainYears === d.years
+                    ? "border-accent/60 bg-accent/10 text-accent"
+                    : "border-outline text-secondary hover:text-primary"
+                }`}
+              >
+                {d.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* cost input */}
+        <div className="mt-5 flex items-center justify-between gap-4">
           <div>
-            <span className="text-sm font-semibold">Domain cost (\u20b9/year)</span>
+            <span className="text-sm font-semibold">
+              Total cost for {domainYears} {domainYears === 1 ? "year" : "years"}
+            </span>
             <span className="mt-0.5 block text-xs text-muted">
-              Enter the actual domain price from Namecheap
+              Enter the price from Namecheap for {domainYears}yr registration
             </span>
           </div>
-          <input
-            type="number"
-            value={domainCost}
-            onChange={(e) => setDomainCost(Number(e.target.value) || 0)}
-            className="w-28 rounded-lg border border-outline bg-surface px-4 py-2.5 text-center text-sm tabular-nums text-primary outline-none focus:border-accent/60"
-          />
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-muted">{"₹"}</span>
+            <input
+              type="number"
+              value={domainCost}
+              onChange={(e) => setDomainCost(Number(e.target.value) || 0)}
+              className="w-24 rounded-lg border border-outline bg-surface px-3 py-2.5 text-center text-sm tabular-nums text-primary outline-none focus:border-accent/60"
+            />
+          </div>
         </div>
+
+        {domainCost > 0 && domainYears > 1 && (
+          <p className="mt-2 text-xs text-muted">
+            That{"'"}s {inr(perYear)}/year over {domainYears} years
+          </p>
+        )}
       </div>
     </div>
   );
@@ -359,6 +403,7 @@ function StepQuote({
   reels,
   amc,
   domainCost,
+  domainYears,
   quoteUrl,
   setStep,
 }: {
@@ -367,6 +412,7 @@ function StepQuote({
   reels: number;
   amc: (typeof AMC_PLANS)[number];
   domainCost: number;
+  domainYears: number;
   quoteUrl: string;
   setStep: (n: number) => void;
 }) {
@@ -394,10 +440,14 @@ function StepQuote({
     }
   });
 
-  // domain
+  // domain — recurring per duration
   if (domainCost > 0) {
-    oneTimeTotal += domainCost;
-    oneTimeItems.push({ label: "Domain registration", amount: inr(domainCost), color: "bg-blue-400" });
+    const domainLabel = domainYears === 1
+      ? "Domain registration (yearly)"
+      : `Domain registration (${domainYears}-year)`;
+    const domainSuffix = domainYears === 1 ? "/yr" : `/${domainYears}yr`;
+    yearlyItems.push({ label: domainLabel, amount: inr(domainCost) + domainSuffix, color: "bg-blue-400" });
+    yearlyTotal += domainYears === 1 ? domainCost : domainCost;
   }
 
   if (reels > 0) {
@@ -528,6 +578,7 @@ export function Pricing() {
   const [addons, setAddons] = useState<Set<number>>(new Set());
   const [amcIndex, setAmcIndex] = useState(0);
   const [domainCost, setDomainCost] = useState(800);
+  const [domainYears, setDomainYears] = useState(1);
 
   function toggleAddon(i: number) {
     setAddons((prev) => {
@@ -548,12 +599,12 @@ export function Pricing() {
     if (reels > 0) lines.push(`Reels: ${reels}/month — ${inr(reels * REEL_PRICE)}/mo`);
     const amc = AMC_PLANS[amcIndex];
     if (amc.price > 0) lines.push(`AMC: ${amc.name} — ${inr(amc.price)}/mo`);
-    if (domainCost > 0) lines.push(`Domain: ${inr(domainCost)}/yr`);
+    if (domainCost > 0) lines.push(`Domain: ${inr(domainCost)} for ${domainYears} ${domainYears === 1 ? "year" : "years"}`);
 
     return WHATSAPP_URL.includes("wa.me")
       ? `${WHATSAPP_URL.split("?")[0]}?text=${encodeURIComponent(lines.join("\n"))}`
       : "#contact";
-  }, [pkgIndex, addons, reels, amcIndex, domainCost]);
+  }, [pkgIndex, addons, reels, amcIndex, domainCost, domainYears]);
 
   const current = STEP_TITLES[step];
 
@@ -598,6 +649,8 @@ export function Pricing() {
                 setAmcIndex={setAmcIndex}
                 domainCost={domainCost}
                 setDomainCost={setDomainCost}
+                domainYears={domainYears}
+                setDomainYears={setDomainYears}
               />
             )}
             {step === 4 && (
@@ -607,6 +660,7 @@ export function Pricing() {
                 reels={reels}
                 amc={AMC_PLANS[amcIndex]}
                 domainCost={domainCost}
+                domainYears={domainYears}
                 quoteUrl={quoteUrl}
                 setStep={setStep}
               />
