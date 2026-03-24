@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -86,6 +87,20 @@ export default function ClinicDemo() {
         </div>
       </section>
 
+      {/* hero image */}
+      <div className="mx-auto max-w-5xl px-6 pb-12">
+        <div className="relative overflow-hidden rounded-2xl" style={{ aspectRatio: "21/9" }}>
+          <Image
+            src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1200&q=80&auto=format&fit=crop"
+            alt="Modern medical clinic"
+            fill
+            className="object-cover"
+            sizes="100vw"
+            priority
+          />
+        </div>
+      </div>
+
       {/* process steps */}
       <section className="border-y py-12" style={{ borderColor: "#E5F0E5", background: "#F0FDF4" }}>
         <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-8 px-6 sm:flex-row">
@@ -135,8 +150,14 @@ export default function ClinicDemo() {
           <div className="mt-10 flex flex-col gap-4">
             {DOCTORS.map((d) => (
               <div key={d.name} className="flex items-center gap-5 rounded-xl border p-5" style={{ borderColor: "#E5F0E5" }}>
-                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full font-bold text-white" style={{ background: "#059669" }}>
-                  {d.name.split(" ").pop()?.[0]}
+                <div className="relative h-12 w-12 flex-shrink-0 overflow-hidden rounded-full">
+                  <Image
+                    src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=100&q=80&auto=format&fit=crop&facepad=2"
+                    alt={d.name}
+                    fill
+                    className="object-cover"
+                    sizes="48px"
+                  />
                 </div>
                 <div className="flex-1">
                   <span className="font-semibold">{d.name}</span>

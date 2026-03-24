@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -69,17 +70,20 @@ export default function RestaurantDemo() {
 
       {/* full-viewport hero */}
       <section className="relative flex min-h-[90vh] items-end overflow-hidden">
-        {/* warm gradient overlay */}
+        {/* background image */}
+        <Image
+          src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=1920&q=80&auto=format&fit=crop"
+          alt="Indian food spread"
+          fill
+          className="object-cover"
+          sizes="100vw"
+          priority
+        />
+        {/* gradient overlay */}
         <div
           className="absolute inset-0"
           style={{
-            background: "linear-gradient(to top, #0C0A09 0%, #0C0A09 20%, transparent 60%)",
-          }}
-        />
-        <div
-          className="pointer-events-none absolute right-0 top-0 h-full w-1/2 opacity-10"
-          style={{
-            background: "radial-gradient(circle at 70% 30%, #D97706 0%, transparent 60%)",
+            background: "linear-gradient(to top, #0C0A09 0%, #0C0A09 30%, rgba(12,10,9,0.6) 60%, rgba(12,10,9,0.4) 100%)",
           }}
         />
         <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-16">
@@ -109,9 +113,20 @@ export default function RestaurantDemo() {
       {/* featured dishes — large cards */}
       <section className="py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-6">
-          <span className="text-[10px] font-medium uppercase tracking-[0.3em]" style={{ color: "#D97706" }}>
-            Chef&apos;s picks
-          </span>
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+            <span className="text-[10px] font-medium uppercase tracking-[0.3em]" style={{ color: "#D97706" }}>
+              Chef&apos;s picks
+            </span>
+            <div className="relative h-48 w-full overflow-hidden rounded-xl sm:h-32 sm:w-64">
+              <Image
+                src="https://images.unsplash.com/photo-1626515405415-d7b6371941b8?w=600&q=80&auto=format&fit=crop"
+                alt="Kerala fish curry"
+                fill
+                className="object-cover"
+                sizes="(max-width: 640px) 100vw, 256px"
+              />
+            </div>
+          </div>
           <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
             {FEATURED.map((f) => (
               <div key={f.dish} className="group rounded-xl border p-6 transition-colors hover:border-amber-800/50" style={{ borderColor: "#292524", background: "#1C1917" }}>

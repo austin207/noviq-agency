@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -59,14 +60,24 @@ export default function DermaDemo() {
                 <span className="font-semibold italic" style={{ color: "#B85C38" }}>look its best.</span>
               </h1>
             </div>
-            <div className="flex flex-col justify-end lg:col-span-4">
+            <div className="flex flex-col gap-6 lg:col-span-4">
+              <div className="relative overflow-hidden rounded-2xl" style={{ aspectRatio: "3/4" }}>
+                <Image
+                  src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&q=80&auto=format&fit=crop"
+                  alt="Skincare treatment"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 33vw"
+                  priority
+                />
+              </div>
               <p className="leading-relaxed" style={{ color: "#8C7060" }}>
                 Board-certified dermatologist with 14 years of experience.
                 Science-first treatments. Honest advice. No upselling.
               </p>
               <a
                 href="#book"
-                className="mt-6 inline-flex w-fit rounded-full px-7 py-3 text-sm font-medium text-white"
+                className="inline-flex w-fit rounded-full px-7 py-3 text-sm font-medium text-white"
                 style={{ background: "#B85C38" }}
               >
                 Book a consultation
@@ -112,6 +123,15 @@ export default function DermaDemo() {
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-5">
             <div className="lg:col-span-2">
+              <div className="relative mb-6 h-20 w-20 overflow-hidden rounded-full">
+                <Image
+                  src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=200&q=80&auto=format&fit=crop&facepad=2"
+                  alt="Dr. Meera Krishnan"
+                  fill
+                  className="object-cover"
+                  sizes="80px"
+                />
+              </div>
               <span className="text-[10px] font-medium uppercase tracking-[0.3em]" style={{ color: "#B85C38" }}>
                 Your dermatologist
               </span>

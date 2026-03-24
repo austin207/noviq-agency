@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -113,14 +114,26 @@ export default function DentalDemo() {
             </div>
           </div>
 
-          {/* stats grid instead of image */}
-          <div className="grid grid-cols-2 gap-4">
-            {STATS.map((s) => (
-              <div key={s.label} className="rounded-2xl border p-6 text-center" style={{ borderColor: "#E8EDF2", background: "#FFFFFF" }}>
-                <span className="text-3xl font-bold" style={{ color: "#0891B2" }}>{s.value}</span>
-                <span className="mt-1 block text-xs uppercase tracking-widest" style={{ color: "#6B7A8D" }}>{s.label}</span>
-              </div>
-            ))}
+          {/* hero image + stats */}
+          <div className="flex flex-col gap-4">
+            <div className="relative overflow-hidden rounded-2xl" style={{ aspectRatio: "4/3" }}>
+              <Image
+                src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&q=80&auto=format&fit=crop"
+                alt="Modern dental clinic interior"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                priority
+              />
+            </div>
+            <div className="grid grid-cols-4 gap-3">
+              {STATS.map((s) => (
+                <div key={s.label} className="rounded-xl border p-3 text-center" style={{ borderColor: "#E8EDF2", background: "#FFFFFF" }}>
+                  <span className="text-lg font-bold" style={{ color: "#0891B2" }}>{s.value}</span>
+                  <span className="mt-0.5 block text-[10px] uppercase tracking-widest" style={{ color: "#6B7A8D" }}>{s.label}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
