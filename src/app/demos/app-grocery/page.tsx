@@ -1,3 +1,6 @@
+import type { Metadata } from "next";
+export const metadata: Metadata = { title: "FreshMart — Grocery Delivery App Demo", description: "Sample grocery delivery app built with Flutter by Noviq. Product browsing, cart, 15-min delivery." };
+
 export default function GroceryApp() {
   const products = [
     { name: "Banana (1 kg)", price: "₹45", tag: null },

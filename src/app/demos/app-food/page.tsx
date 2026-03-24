@@ -1,3 +1,6 @@
+import type { Metadata } from "next";
+export const metadata: Metadata = { title: "FoodDash — Food Delivery App Demo", description: "Sample food delivery app built with Flutter by Noviq. Online ordering, live tracking, push notifications." };
+
 export default function FoodApp() {
   const items = [
     { name: "Kerala Fish Curry", desc: "Karimeen in coconut gravy", price: "₹350", tag: "Popular" },
