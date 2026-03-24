@@ -91,8 +91,8 @@ export default function ClinicDemo() {
       <div className="mx-auto max-w-5xl px-6 pb-12">
         <div className="relative overflow-hidden rounded-2xl" style={{ aspectRatio: "21/9" }}>
           <Image
-            src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1200&q=80&auto=format&fit=crop"
-            alt="Modern medical clinic"
+            src="/samples/clinic.jpeg"
+            alt="Doctor checking patient blood pressure"
             fill
             className="object-cover"
             sizes="100vw"

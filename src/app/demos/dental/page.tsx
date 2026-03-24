@@ -118,8 +118,8 @@ export default function DentalDemo() {
           <div className="flex flex-col gap-4">
             <div className="relative overflow-hidden rounded-2xl" style={{ aspectRatio: "4/3" }}>
               <Image
-                src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&q=80&auto=format&fit=crop"
-                alt="Modern dental clinic interior"
+                src="/samples/dentist.jpeg"
+                alt="Smiling patient at dental clinic"
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
