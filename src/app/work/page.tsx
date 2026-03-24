@@ -6,7 +6,8 @@ import { FadeIn } from "@/components/fade-in";
 
 export const metadata: Metadata = {
   title: "Our Work — Noviq",
-  description: "Sample websites built by Noviq for dental clinics, medical clinics, dermatologists, and restaurants.",
+  description:
+    "Sample websites built by Noviq for dental clinics, medical clinics, dermatologists, and restaurants.",
 };
 
 const PROJECTS = [
@@ -14,86 +15,76 @@ const PROJECTS = [
     slug: "/demos/dental",
     name: "SmileCraft Dental",
     type: "Dental Clinic",
-    location: "Thrippunithura, Kochi",
-    description:
-      "Appointment booking, treatment showcase, trust signals. Built to turn Google searches into booked visits.",
-    colors: ["#0891B2", "#06B6D4", "#22D3EE"],
-    bg: "bg-cyan-950/40",
+    accent: "#0891B2",
   },
   {
     slug: "/demos/clinic",
     name: "MedCare Plus",
     type: "General Clinic",
-    location: "Ernakulam, Kochi",
-    description:
-      "Service listing, doctor profiles, lab test booking. Clean, professional, gets straight to the point.",
-    colors: ["#059669", "#10B981", "#34D399"],
-    bg: "bg-emerald-950/40",
+    accent: "#059669",
   },
   {
     slug: "/demos/derma",
     name: "GlowDerm Skin & Hair",
     type: "Dermatologist",
-    location: "Panampilly Nagar, Kochi",
-    description:
-      "Treatment pages, before/after showcase, online consultation booking. Modern and trustworthy.",
-    colors: ["#C2662D", "#E8845A", "#F4A87C"],
-    bg: "bg-orange-950/30",
+    accent: "#B85C38",
   },
   {
     slug: "/demos/restaurant",
     name: "Spice Garden",
     type: "Restaurant",
-    location: "Fort Kochi",
-    description:
-      "Menu display, online ordering, table reservations, delivery tracking. Warm, appetising, easy to navigate.",
-    colors: ["#D97706", "#F59E0B", "#FBBF24"],
-    bg: "bg-amber-950/30",
+    accent: "#D97706",
   },
 ];
 
-function BrowserFrame({
-  colors,
-  bg,
+function PreviewCard({
+  project,
 }: {
-  colors: string[];
-  bg: string;
+  project: (typeof PROJECTS)[number];
 }) {
   return (
-    <div className={`rounded-lg ${bg} p-3`}>
-      {/* browser chrome */}
-      <div className="mb-3 flex items-center gap-1.5">
-        <span className="h-2 w-2 rounded-full bg-white/10" />
-        <span className="h-2 w-2 rounded-full bg-white/10" />
-        <span className="h-2 w-2 rounded-full bg-white/10" />
-        <span className="ml-2 h-4 flex-1 rounded-sm bg-white/5" />
-      </div>
-      {/* abstract page mockup */}
-      <div className="flex flex-col gap-2 px-2 pb-2">
-        <div
-          className="h-2 w-16 rounded-full opacity-60"
-          style={{ background: colors[0] }}
-        />
-        <div className="h-1.5 w-full rounded-full bg-white/8" />
-        <div className="h-1.5 w-4/5 rounded-full bg-white/8" />
-        <div className="mt-1 flex gap-2">
-          <div
-            className="h-10 flex-1 rounded-md opacity-20"
-            style={{ background: colors[1] }}
+    <Link href={project.slug} className="group flex flex-col">
+      {/* live preview */}
+      <div className="relative overflow-hidden rounded-xl border border-outline bg-surface transition-all duration-300 group-hover:border-accent/40 group-hover:shadow-[0_0_40px_rgba(255,107,44,0.06)]">
+        <div className="relative h-[340px] overflow-hidden sm:h-[400px]">
+          <iframe
+            src={project.slug}
+            title={`${project.name} preview`}
+            className="pointer-events-none absolute left-0 top-0 origin-top-left"
+            style={{
+              width: "1440px",
+              height: "1200px",
+              transform: "scale(0.32)",
+              transformOrigin: "top left",
+            }}
+            loading="lazy"
+            tabIndex={-1}
           />
-          <div
-            className="h-10 flex-1 rounded-md opacity-20"
-            style={{ background: colors[2] }}
-          />
-          <div
-            className="h-10 flex-1 rounded-md opacity-20"
-            style={{ background: colors[0] }}
-          />
+          {/* hover overlay */}
+          <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all duration-300 group-hover:bg-black/50">
+            <span className="translate-y-2 rounded-full border border-white/30 bg-white/10 px-6 py-2.5 text-sm font-medium text-white opacity-0 backdrop-blur-md transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+              View Details
+            </span>
+          </div>
         </div>
-        <div className="h-1.5 w-3/4 rounded-full bg-white/5" />
-        <div className="h-1.5 w-1/2 rounded-full bg-white/5" />
       </div>
-    </div>
+
+      {/* info */}
+      <div className="mt-4 flex items-center gap-3">
+        <span
+          className="flex h-9 w-9 items-center justify-center rounded-full text-xs font-bold text-white"
+          style={{ background: project.accent }}
+        >
+          {project.name[0]}
+        </span>
+        <div className="flex-1">
+          <h2 className="text-sm font-semibold tracking-tight">
+            {project.name}
+          </h2>
+          <p className="text-xs text-muted">{project.type}</p>
+        </div>
+      </div>
+    </Link>
   );
 }
 
@@ -102,70 +93,40 @@ export default function WorkPage() {
     <>
       <Header />
       <main className="pt-28 pb-24">
-        <div className="mx-auto max-w-6xl px-6">
+        <div className="mx-auto max-w-7xl px-6">
           <FadeIn>
-            <div className="mb-4 flex items-center gap-4">
-              <span className="h-px w-8 bg-accent" />
-              <span className="text-xs uppercase tracking-[0.2em] text-secondary">
-                Our work
-              </span>
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+                  Our work
+                </h1>
+                <p className="mt-2 max-w-md text-secondary">
+                  Live demos — click any preview to explore the full site.
+                </p>
+              </div>
+              <Link
+                href="/#pricing"
+                className="text-sm text-accent transition-colors hover:text-accent-hover"
+              >
+                See pricing &rarr;
+              </Link>
             </div>
-            <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
-              Sample sites we&apos;ve built.
-            </h1>
-            <p className="mt-4 max-w-lg text-secondary">
-              Each demo is a fully working landing page — the kind of site your
-              business would get. Tap any card to see it live.
-            </p>
           </FadeIn>
 
-          <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2">
+          <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
             {PROJECTS.map((project, i) => (
               <FadeIn key={project.slug} delay={i * 0.08}>
-                <Link
-                  href={project.slug}
-                  className="group flex flex-col rounded-2xl border border-outline bg-surface p-5 transition-all duration-300 hover:border-accent/40 hover:bg-elevated"
-                >
-                  <BrowserFrame colors={project.colors} bg={project.bg} />
-
-                  <div className="mt-5 flex items-start justify-between gap-4">
-                    <div>
-                      <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-muted">
-                        {project.type}
-                      </span>
-                      <h2 className="mt-1 text-xl font-semibold tracking-tight">
-                        {project.name}
-                      </h2>
-                      <p className="mt-0.5 text-xs text-muted">
-                        {project.location}
-                      </p>
-                    </div>
-                    <span className="mt-1 text-muted transition-all duration-200 group-hover:translate-x-1 group-hover:text-accent">
-                      &rarr;
-                    </span>
-                  </div>
-
-                  <p className="mt-3 text-sm leading-relaxed text-secondary">
-                    {project.description}
-                  </p>
-                </Link>
+                <PreviewCard project={project} />
               </FadeIn>
             ))}
           </div>
 
           <FadeIn delay={0.4}>
-            <div className="mt-16 rounded-2xl border border-outline bg-surface p-8 text-center">
-              <p className="text-secondary">
+            <div className="mt-20 text-center">
+              <p className="text-sm text-muted">
                 These are samples. Your site gets built from scratch — your
                 brand, your content, your business.
               </p>
-              <Link
-                href="/#pricing"
-                className="mt-4 inline-flex items-center gap-2 text-sm text-accent transition-colors hover:text-accent-hover"
-              >
-                See pricing
-                <span>&rarr;</span>
-              </Link>
             </div>
           </FadeIn>
         </div>
