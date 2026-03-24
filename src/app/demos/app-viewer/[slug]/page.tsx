@@ -64,7 +64,7 @@ export default async function AppViewerPage({
 
         {/* screen — interactive, user can scroll */}
         <div
-          className="overflow-y-auto overflow-x-hidden rounded-[2.4rem]"
+          className="overflow-y-auto overflow-x-hidden rounded-[2.4rem] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           style={{ width: "320px", height: "693px" }}
         >
           <iframe
