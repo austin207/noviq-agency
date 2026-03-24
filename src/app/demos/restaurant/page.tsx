@@ -6,44 +6,43 @@ export const metadata: Metadata = {
   description: "Sample restaurant website built by Noviq.",
 };
 
-const MENU_CATEGORIES = [
-  {
-    name: "Starters",
-    items: [
-      { dish: "Malabar Prawn Fry", price: "₹320" },
-      { dish: "Beef Ularthiyathu", price: "₹280" },
-      { dish: "Paneer Tikka", price: "₹220" },
-      { dish: "Fish Mappas Croquettes", price: "₹260" },
-    ],
-  },
-  {
-    name: "Mains",
-    items: [
-      { dish: "Kerala Fish Curry + Rice", price: "₹350" },
-      { dish: "Chicken Biryani", price: "₹300" },
-      { dish: "Malabar Parotta + Beef Curry", price: "₹320" },
-      { dish: "Vegetable Thali", price: "₹240" },
-    ],
-  },
-  {
-    name: "Desserts",
-    items: [
-      { dish: "Palada Payasam", price: "₹150" },
-      { dish: "Elaneer Pudding", price: "₹180" },
-    ],
-  },
+/* immersive dark — full-bleed hero, menu with category headers, featured dishes, reservation CTA */
+
+const FEATURED = [
+  { dish: "Kerala Fish Curry", desc: "Fresh karimeen in coconut gravy, the way it's meant to taste.", price: "₹350" },
+  { dish: "Malabar Biryani", desc: "Fragrant basmati with slow-cooked meat, fried onions, and whole spices.", price: "₹320" },
+  { dish: "Beef Ularthiyathu", desc: "Dry-roasted beef with coconut, curry leaves, and a serious kick.", price: "₹280" },
 ];
 
-const FEATURES = [
-  { title: "Order Online", desc: "Skip the wait. Order for pickup or delivery straight from our site." },
-  { title: "Reserve a Table", desc: "Book your spot for dinner — especially on weekends, we fill up fast." },
-  { title: "Catering", desc: "Weddings, parties, office events. Kerala cuisine at scale, done right." },
+const MENU = {
+  Starters: [
+    { dish: "Prawn Fry", price: "₹320" },
+    { dish: "Chicken 65", price: "₹240" },
+    { dish: "Paneer Tikka", price: "₹220" },
+    { dish: "Fish Cutlet", price: "₹200" },
+  ],
+  Mains: [
+    { dish: "Chicken Biryani", price: "₹300" },
+    { dish: "Parotta + Beef Curry", price: "₹320" },
+    { dish: "Vegetable Thali", price: "₹240" },
+    { dish: "Appam + Stew", price: "₹260" },
+  ],
+  Desserts: [
+    { dish: "Palada Payasam", price: "₹150" },
+    { dish: "Elaneer Pudding", price: "₹180" },
+    { dish: "Double Ka Meetha", price: "₹160" },
+  ],
+};
+
+const HOURS = [
+  { label: "Lunch", time: "12:00 – 3:00 PM" },
+  { label: "Dinner", time: "6:30 – 11:00 PM" },
+  { label: "Bar", time: "5:00 PM – midnight" },
 ];
 
 export default function RestaurantDemo() {
   return (
     <div className="min-h-dvh" style={{ background: "#0C0A09", color: "#FAFAF9" }}>
-      {/* noviq badge */}
       <Link
         href="/work"
         className="fixed top-4 right-4 z-50 rounded-full border border-white/10 bg-black/80 px-4 py-1.5 text-[11px] font-medium text-gray-400 backdrop-blur-md transition-colors hover:text-white"
@@ -51,86 +50,109 @@ export default function RestaurantDemo() {
         &larr; Noviq demo
       </Link>
 
-      {/* nav */}
-      <nav className="border-b border-white/5">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-          <span className="text-lg font-semibold tracking-tight">
-            Spice <span style={{ color: "#D97706" }}>Garden</span>
+      {/* nav — transparent, blends into hero */}
+      <nav className="absolute left-0 right-0 top-0 z-30">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
+          <span className="text-xl font-light tracking-widest uppercase">
+            Spice<span className="font-bold" style={{ color: "#D97706" }}> Garden</span>
           </span>
           <div className="hidden gap-8 text-sm md:flex" style={{ color: "#A8A29E" }}>
             <a href="#menu" className="transition-colors hover:text-white">Menu</a>
-            <a href="#about" className="transition-colors hover:text-white">About</a>
-            <a href="#contact" className="transition-colors hover:text-white">Contact</a>
+            <a href="#story" className="transition-colors hover:text-white">Our Story</a>
+            <a href="#reserve" className="transition-colors hover:text-white">Reserve</a>
           </div>
-          <a
-            href="#contact"
-            className="rounded-full px-5 py-2 text-sm font-medium text-black"
-            style={{ background: "#D97706" }}
-          >
-            Order now
+          <a href="#reserve" className="rounded-none border px-5 py-2 text-xs font-medium uppercase tracking-widest transition-colors hover:bg-white hover:text-black" style={{ borderColor: "#D97706", color: "#D97706" }}>
+            Reserve
           </a>
         </div>
       </nav>
 
-      {/* hero */}
-      <section className="py-20 sm:py-28">
-        <div className="mx-auto max-w-5xl px-6">
-          <p className="text-xs font-medium uppercase tracking-[0.2em]" style={{ color: "#D97706" }}>
-            Authentic Kerala cuisine — Fort Kochi
+      {/* full-viewport hero */}
+      <section className="relative flex min-h-[90vh] items-end overflow-hidden">
+        {/* warm gradient overlay */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "linear-gradient(to top, #0C0A09 0%, #0C0A09 20%, transparent 60%)",
+          }}
+        />
+        <div
+          className="pointer-events-none absolute right-0 top-0 h-full w-1/2 opacity-10"
+          style={{
+            background: "radial-gradient(circle at 70% 30%, #D97706 0%, transparent 60%)",
+          }}
+        />
+        <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-16">
+          <p className="text-xs font-medium uppercase tracking-[0.3em]" style={{ color: "#D97706" }}>
+            Fort Kochi, Kerala
           </p>
-          <h1 className="mt-4 max-w-xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
-            Food that tastes like someone&apos;s amma made it.
+          <h1 className="mt-4 max-w-3xl text-5xl font-light leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
+            Food that tastes like<br />someone&apos;s{" "}
+            <span className="font-bold italic" style={{ color: "#D97706" }}>amma</span>{" "}
+            made it.
           </h1>
-          <p className="mt-4 max-w-md text-base" style={{ color: "#A8A29E" }}>
-            Traditional recipes. Fresh ingredients from Ernakulam market every
-            morning. A kitchen that takes its time.
+          <p className="mt-5 max-w-md" style={{ color: "#A8A29E" }}>
+            Traditional Kerala recipes. Fresh from Ernakulam market every morning.
+            A kitchen that takes its time.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <a
-              href="#menu"
-              className="rounded-full px-7 py-3 text-sm font-medium text-black"
-              style={{ background: "#D97706" }}
-            >
+          <div className="mt-8 flex gap-4">
+            <a href="#menu" className="border-b-2 pb-1 text-sm font-medium" style={{ borderColor: "#D97706", color: "#D97706" }}>
               See the menu
             </a>
-            <a
-              href="#contact"
-              className="rounded-full border px-7 py-3 text-sm"
-              style={{ borderColor: "#44403C", color: "#D97706" }}
-            >
+            <a href="#reserve" className="border-b-2 pb-1 text-sm" style={{ borderColor: "#44403C", color: "#A8A29E" }}>
               Reserve a table
             </a>
           </div>
         </div>
       </section>
 
-      {/* menu */}
-      <section id="menu" className="py-20" style={{ background: "#1C1917" }}>
-        <div className="mx-auto max-w-5xl px-6">
-          <p className="text-xs font-medium uppercase tracking-[0.2em]" style={{ color: "#D97706" }}>
-            Our menu
-          </p>
-          <h2 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">
-            What&apos;s cooking.
-          </h2>
+      {/* featured dishes — large cards */}
+      <section className="py-16 sm:py-24">
+        <div className="mx-auto max-w-6xl px-6">
+          <span className="text-[10px] font-medium uppercase tracking-[0.3em]" style={{ color: "#D97706" }}>
+            Chef&apos;s picks
+          </span>
+          <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
+            {FEATURED.map((f) => (
+              <div key={f.dish} className="group rounded-xl border p-6 transition-colors hover:border-amber-800/50" style={{ borderColor: "#292524", background: "#1C1917" }}>
+                <div className="flex items-start justify-between">
+                  <h3 className="text-lg font-semibold">{f.dish}</h3>
+                  <span className="text-lg font-light tabular-nums" style={{ color: "#D97706" }}>
+                    {f.price}
+                  </span>
+                </div>
+                <p className="mt-3 text-sm leading-relaxed" style={{ color: "#A8A29E" }}>
+                  {f.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-          <div className="mt-10 flex flex-col gap-10">
-            {MENU_CATEGORIES.map((cat) => (
-              <div key={cat.name}>
-                <h3 className="mb-4 text-sm font-medium uppercase tracking-widest" style={{ color: "#D97706" }}>
-                  {cat.name}
+      {/* full menu */}
+      <section id="menu" className="border-y py-16 sm:py-24" style={{ borderColor: "#292524", background: "#1C1917" }}>
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="text-center">
+            <span className="text-[10px] font-medium uppercase tracking-[0.3em]" style={{ color: "#D97706" }}>
+              Full menu
+            </span>
+            <h2 className="mt-2 text-3xl font-light tracking-tight sm:text-4xl">
+              What&apos;s <span className="font-semibold">cooking.</span>
+            </h2>
+          </div>
+
+          <div className="mt-12 grid grid-cols-1 gap-12 md:grid-cols-3">
+            {Object.entries(MENU).map(([category, items]) => (
+              <div key={category}>
+                <h3 className="border-b pb-3 text-xs font-medium uppercase tracking-[0.3em]" style={{ borderColor: "#44403C", color: "#D97706" }}>
+                  {category}
                 </h3>
-                <div className="flex flex-col">
-                  {cat.items.map((item) => (
-                    <div
-                      key={item.dish}
-                      className="flex items-center justify-between border-b py-4 text-sm"
-                      style={{ borderColor: "#292524" }}
-                    >
+                <div className="mt-4 flex flex-col">
+                  {items.map((item) => (
+                    <div key={item.dish} className="flex items-center justify-between border-b py-3 text-sm" style={{ borderColor: "#292524" }}>
                       <span>{item.dish}</span>
-                      <span className="tabular-nums" style={{ color: "#A8A29E" }}>
-                        {item.price}
-                      </span>
+                      <span className="tabular-nums" style={{ color: "#78716C" }}>{item.price}</span>
                     </div>
                   ))}
                 </div>
@@ -140,64 +162,60 @@ export default function RestaurantDemo() {
         </div>
       </section>
 
-      {/* features */}
-      <section id="about" className="py-20">
-        <div className="mx-auto max-w-5xl px-6">
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-            {FEATURES.map((f) => (
-              <div key={f.title} className="rounded-xl border p-6" style={{ borderColor: "#292524", background: "#1C1917" }}>
-                <h3 className="font-semibold">{f.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed" style={{ color: "#A8A29E" }}>
-                  {f.desc}
-                </p>
+      {/* story / quote */}
+      <section id="story" className="py-16 sm:py-24">
+        <div className="mx-auto max-w-4xl px-6 text-center">
+          <blockquote className="text-2xl font-light leading-relaxed sm:text-3xl">
+            &ldquo;The fish curry here is the real thing. No shortcuts, no
+            fusion nonsense. This is the kind of food you remember.&rdquo;
+          </blockquote>
+          <p className="mt-6 text-sm" style={{ color: "#D97706" }}>
+            Thomas K. &middot; Fort Kochi
+          </p>
+        </div>
+      </section>
+
+      {/* reserve */}
+      <section id="reserve" className="py-16" style={{ background: "#1C1917" }}>
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
+            <div>
+              <span className="text-[10px] font-medium uppercase tracking-[0.3em]" style={{ color: "#D97706" }}>
+                Visit us
+              </span>
+              <h2 className="mt-2 text-3xl font-semibold tracking-tight">Hungry yet?</h2>
+              <p className="mt-4 text-sm leading-relaxed" style={{ color: "#A8A29E" }}>
+                Walk in, call ahead, or order online. We&apos;re at Fort Kochi,
+                right off the waterfront. Parking available.
+              </p>
+              <div className="mt-8">
+                <span className="inline-block border-b-2 px-8 py-3.5 text-lg font-medium" style={{ borderColor: "#D97706", color: "#D97706" }}>
+                  +91 98765 43210
+                </span>
               </div>
-            ))}
+            </div>
+            <div className="flex flex-col gap-4">
+              {HOURS.map((h) => (
+                <div key={h.label} className="flex items-center justify-between rounded-lg border p-5" style={{ borderColor: "#292524" }}>
+                  <span className="text-sm font-medium">{h.label}</span>
+                  <span className="text-sm tabular-nums" style={{ color: "#A8A29E" }}>{h.time}</span>
+                </div>
+              ))}
+              <a
+                href="#"
+                className="mt-2 flex items-center justify-center rounded-lg py-4 text-sm font-medium uppercase tracking-widest text-black transition-colors hover:opacity-90"
+                style={{ background: "#D97706" }}
+              >
+                Order online &rarr;
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* testimonial */}
-      <section className="py-20" style={{ background: "#1C1917" }}>
-        <div className="mx-auto max-w-5xl px-6">
-          <div className="rounded-xl p-8" style={{ background: "#292524" }}>
-            <p className="text-lg font-medium leading-relaxed">
-              &ldquo;The fish curry here is the real thing. No shortcuts, no
-              fusion nonsense. This is the kind of food you remember.&rdquo;
-            </p>
-            <p className="mt-4 text-sm font-medium" style={{ color: "#D97706" }}>
-              — Thomas K., Fort Kochi
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* cta */}
-      <section id="contact" className="py-20">
-        <div className="mx-auto max-w-5xl px-6 text-center">
-          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-            Hungry yet?
-          </h2>
-          <p className="mx-auto mt-3 max-w-md text-sm" style={{ color: "#A8A29E" }}>
-            Walk in, call ahead, or order online. We&apos;re open for lunch and dinner, every day.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <span className="rounded-full px-8 py-3.5 text-sm font-medium text-black" style={{ background: "#D97706" }}>
-              +91 98765 43210
-            </span>
-            <span className="rounded-full border px-8 py-3.5 text-sm" style={{ borderColor: "#44403C" }}>
-              Fort Kochi, Kerala
-            </span>
-          </div>
-          <p className="mt-4 text-xs" style={{ color: "#78716C" }}>
-            Open 12:00 PM – 3:00 PM &middot; 6:30 PM – 11:00 PM
-          </p>
-        </div>
-      </section>
-
-      {/* footer */}
       <footer className="border-t py-6" style={{ borderColor: "#292524" }}>
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 text-xs" style={{ color: "#78716C" }}>
-          <span>Spice Garden</span>
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 text-xs" style={{ color: "#78716C" }}>
+          <span>Spice Garden &middot; Fort Kochi</span>
           <span>&copy; 2026</span>
         </div>
       </footer>

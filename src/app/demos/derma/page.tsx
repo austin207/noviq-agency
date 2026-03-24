@@ -6,37 +6,27 @@ export const metadata: Metadata = {
   description: "Sample dermatologist website built by Noviq.",
 };
 
+/* editorial/magazine layout — large type, alternating sections, asymmetric grid */
+
 const TREATMENTS = [
-  {
-    title: "Acne & Scar Treatment",
-    desc: "Clinical-grade peels, laser resurfacing, and targeted therapy. Clear skin, not just covered-up skin.",
-  },
-  {
-    title: "Laser Hair Removal",
-    desc: "FDA-approved diode laser. Permanent reduction in 6–8 sessions. Works on all skin tones.",
-  },
-  {
-    title: "Hair Restoration",
-    desc: "PRP therapy, GFC, and hair transplant consultations. Evidence-based treatments, not miracle cures.",
-  },
-  {
-    title: "Dermal Fillers & Botox",
-    desc: "Subtle enhancements by an experienced dermatologist. You'll look refreshed — not different.",
-  },
-  {
-    title: "Skin Allergy & Eczema",
-    desc: "Patch testing, immunotherapy, and long-term management plans. Treat the root cause, not just the itch.",
-  },
-  {
-    title: "Pigmentation Correction",
-    desc: "Melasma, dark spots, uneven tone. Customised protocols using the latest in dermatological science.",
-  },
+  { title: "Acne & Scars", desc: "Clinical peels, laser resurfacing, targeted therapy." },
+  { title: "Laser Hair Removal", desc: "FDA-approved diode. Works on all skin tones." },
+  { title: "Hair Restoration", desc: "PRP, GFC therapy, transplant consultations." },
+  { title: "Fillers & Botox", desc: "Subtle enhancements. You look refreshed, not different." },
+  { title: "Pigmentation", desc: "Melasma, dark spots, uneven tone. Custom protocols." },
+  { title: "Allergy & Eczema", desc: "Patch testing, immunotherapy, long-term plans." },
+];
+
+const CREDENTIALS = [
+  "MD Dermatology (AIIMS)",
+  "14 years clinical experience",
+  "Fellowship in cosmetic dermatology",
+  "10,000+ patients treated",
 ];
 
 export default function DermaDemo() {
   return (
-    <div className="min-h-dvh" style={{ background: "#FFF7ED", color: "#431407" }}>
-      {/* noviq badge */}
+    <div className="min-h-dvh" style={{ background: "#FFFAF5", color: "#2D1810" }}>
       <Link
         href="/work"
         className="fixed top-4 right-4 z-50 rounded-full border border-black/10 bg-white/90 px-4 py-1.5 text-[11px] font-medium text-gray-600 shadow-sm backdrop-blur-md transition-colors hover:text-gray-900"
@@ -44,149 +34,154 @@ export default function DermaDemo() {
         &larr; Noviq demo
       </Link>
 
-      {/* nav */}
-      <nav className="border-b border-orange-100" style={{ background: "#FFF7ED" }}>
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-          <span className="text-lg font-semibold tracking-tight">
-            Glow<span style={{ color: "#C2662D" }}>Derm</span>
+      {/* minimal nav — just wordmark and CTA */}
+      <nav className="py-5">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-6">
+          <span className="text-xl font-light tracking-tight">
+            glow<span className="font-semibold" style={{ color: "#B85C38" }}>derm</span>
           </span>
-          <div className="hidden gap-8 text-sm md:flex" style={{ color: "#9A7B6A" }}>
-            <a href="#treatments" className="transition-colors hover:text-orange-900">Treatments</a>
-            <a href="#about" className="transition-colors hover:text-orange-900">About</a>
-            <a href="#contact" className="transition-colors hover:text-orange-900">Contact</a>
-          </div>
-          <a
-            href="#contact"
-            className="rounded-full px-5 py-2 text-sm font-medium text-white"
-            style={{ background: "#C2662D" }}
-          >
+          <a href="#book" className="text-sm font-medium underline underline-offset-4" style={{ color: "#B85C38" }}>
             Book consultation
           </a>
         </div>
       </nav>
 
-      {/* hero */}
-      <section className="py-20 sm:py-28">
-        <div className="mx-auto max-w-5xl px-6">
-          <p className="text-xs font-medium uppercase tracking-[0.2em]" style={{ color: "#C2662D" }}>
-            Dermatologist — Panampilly Nagar, Kochi
-          </p>
-          <h1 className="mt-4 max-w-2xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
-            Your skin has a story. We help it look its best.
-          </h1>
-          <p className="mt-4 max-w-md text-base" style={{ color: "#9A7B6A" }}>
-            Board-certified dermatologist with 14 years of clinical experience.
-            Science-first treatments, honest advice.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <a
-              href="#contact"
-              className="rounded-full px-7 py-3 text-sm font-medium text-white"
-              style={{ background: "#C2662D" }}
-            >
-              Book a consultation
-            </a>
-            <a
-              href="#treatments"
-              className="rounded-full border px-7 py-3 text-sm"
-              style={{ borderColor: "#FDBA74", color: "#C2662D" }}
-            >
-              View treatments
-            </a>
+      {/* editorial hero — oversized type */}
+      <section className="pb-16 pt-12 sm:pb-24 sm:pt-20">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
+            <div className="lg:col-span-8">
+              <p className="text-xs font-medium uppercase tracking-[0.25em]" style={{ color: "#B85C38" }}>
+                Dermatologist &middot; Panampilly Nagar, Kochi
+              </p>
+              <h1 className="mt-4 text-5xl font-light leading-[1.1] tracking-tight sm:text-6xl lg:text-7xl">
+                Your skin has<br />a story. We help it<br />
+                <span className="font-semibold italic" style={{ color: "#B85C38" }}>look its best.</span>
+              </h1>
+            </div>
+            <div className="flex flex-col justify-end lg:col-span-4">
+              <p className="leading-relaxed" style={{ color: "#8C7060" }}>
+                Board-certified dermatologist with 14 years of experience.
+                Science-first treatments. Honest advice. No upselling.
+              </p>
+              <a
+                href="#book"
+                className="mt-6 inline-flex w-fit rounded-full px-7 py-3 text-sm font-medium text-white"
+                style={{ background: "#B85C38" }}
+              >
+                Book a consultation
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* treatments */}
-      <section id="treatments" className="py-20" style={{ background: "#FFFFFF" }}>
-        <div className="mx-auto max-w-5xl px-6">
-          <p className="text-xs font-medium uppercase tracking-[0.2em]" style={{ color: "#C2662D" }}>
+      {/* horizontal divider with text */}
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="flex items-center gap-4 border-t pt-6" style={{ borderColor: "#E8D5C4" }}>
+          <span className="text-[10px] font-medium uppercase tracking-[0.3em]" style={{ color: "#B85C38" }}>
             Treatments
-          </p>
-          <h2 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">
-            Evidence-based. Results-driven.
-          </h2>
-          <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {TREATMENTS.map((t) => (
-              <div key={t.title} className="rounded-xl border border-orange-50 p-6" style={{ background: "#FFFBF5" }}>
-                <h3 className="font-semibold">{t.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed" style={{ color: "#9A7B6A" }}>
-                  {t.desc}
-                </p>
+          </span>
+          <span className="h-px flex-1" style={{ background: "#E8D5C4" }} />
+        </div>
+      </div>
+
+      {/* treatments — asymmetric 2-col grid */}
+      <section id="treatments" className="py-16">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2">
+            {TREATMENTS.map((t, i) => (
+              <div
+                key={t.title}
+                className={`${i % 2 === 1 ? "md:mt-12" : ""}`}
+              >
+                <div className="border-l-2 pl-6" style={{ borderColor: "#B85C38" }}>
+                  <h3 className="text-xl font-semibold tracking-tight">{t.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed" style={{ color: "#8C7060" }}>
+                    {t.desc}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* about / trust */}
-      <section id="about" className="py-20">
-        <div className="mx-auto max-w-5xl px-6">
-          <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
-            <div>
-              <p className="text-xs font-medium uppercase tracking-[0.2em]" style={{ color: "#C2662D" }}>
+      {/* doctor — full-width tinted block */}
+      <section className="py-16" style={{ background: "#F5EDE6" }}>
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-5">
+            <div className="lg:col-span-2">
+              <span className="text-[10px] font-medium uppercase tracking-[0.3em]" style={{ color: "#B85C38" }}>
                 Your dermatologist
-              </p>
-              <h2 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">
-                Dr. Meera Krishnan
+              </span>
+              <h2 className="mt-2 text-3xl font-light tracking-tight sm:text-4xl">
+                Dr. Meera<br /><span className="font-semibold">Krishnan</span>
               </h2>
-              <p className="mt-4 leading-relaxed" style={{ color: "#9A7B6A" }}>
-                MD Dermatology (AIIMS), fellowship in cosmetic dermatology.
-                14 years of clinical experience across leading hospitals in
-                Kerala. Specialises in acne, pigmentation, and anti-ageing
-                treatments.
+              <div className="mt-6 flex flex-wrap gap-2">
+                {CREDENTIALS.map((c) => (
+                  <span key={c} className="rounded-full border px-3 py-1 text-xs" style={{ borderColor: "#D4B8A0", color: "#8C7060" }}>
+                    {c}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="lg:col-span-3">
+              <blockquote className="text-2xl font-light leading-relaxed sm:text-3xl" style={{ color: "#2D1810" }}>
+                &ldquo;She told me what would actually work instead of selling
+                expensive treatments. My skin has never been better.&rdquo;
+              </blockquote>
+              <p className="mt-6 text-sm font-medium" style={{ color: "#B85C38" }}>
+                Divya S. &middot; Ernakulam
               </p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <span className="rounded-full border border-orange-200 px-4 py-1.5 text-xs" style={{ color: "#C2662D" }}>
-                  MD Dermatology
-                </span>
-                <span className="rounded-full border border-orange-200 px-4 py-1.5 text-xs" style={{ color: "#C2662D" }}>
-                  14 years experience
-                </span>
-                <span className="rounded-full border border-orange-200 px-4 py-1.5 text-xs" style={{ color: "#C2662D" }}>
-                  10,000+ patients
-                </span>
-              </div>
             </div>
-            <div className="flex flex-col justify-center">
-              <div className="rounded-xl p-6" style={{ background: "#FED7AA" }}>
-                <p className="text-lg font-medium leading-relaxed" style={{ color: "#431407" }}>
-                  &ldquo;She told me what would actually work instead of trying to
-                  sell me expensive treatments. My skin has never been
-                  better.&rdquo;
-                </p>
-                <p className="mt-4 text-sm font-medium" style={{ color: "#C2662D" }}>
-                  — Divya S., Ernakulam
-                </p>
-              </div>
-            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* approach */}
+      <section className="py-16">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+              Evidence-based. Results-driven.
+            </h2>
+            <p className="mx-auto mt-4 leading-relaxed" style={{ color: "#8C7060" }}>
+              Every treatment plan starts with a proper diagnosis. We use
+              dermoscopy, patch testing, and clinical-grade tools — not
+              guesswork. If something won&apos;t work for your skin, we&apos;ll
+              tell you.
+            </p>
           </div>
         </div>
       </section>
 
       {/* cta */}
-      <section id="contact" className="py-20" style={{ background: "#FFFFFF" }}>
-        <div className="mx-auto max-w-5xl px-6 text-center">
-          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-            Start with a consultation.
-          </h2>
-          <p className="mx-auto mt-3 max-w-md text-sm" style={{ color: "#9A7B6A" }}>
-            30-minute one-on-one with Dr. Krishnan. No commitment, no pressure.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <span className="rounded-full px-8 py-3.5 text-sm font-medium text-white" style={{ background: "#C2662D" }}>
-              +91 98765 43210
-            </span>
-            <span className="rounded-full border px-8 py-3.5 text-sm" style={{ borderColor: "#FDBA74" }}>
-              Panampilly Nagar, Kochi
-            </span>
+      <section id="book" className="py-16">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="overflow-hidden rounded-2xl" style={{ background: "#B85C38" }}>
+            <div className="p-8 text-center text-white sm:p-12">
+              <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+                Start with a consultation.
+              </h2>
+              <p className="mx-auto mt-3 max-w-md text-sm" style={{ color: "#F4C9B0" }}>
+                30-minute one-on-one with Dr. Krishnan. No commitment, no pressure.
+              </p>
+              <div className="mt-8 flex flex-wrap justify-center gap-4">
+                <span className="rounded-full border border-white/30 px-8 py-3.5 text-sm font-medium">
+                  +91 98765 43210
+                </span>
+                <span className="rounded-full border border-white/30 px-8 py-3.5 text-sm">
+                  Panampilly Nagar, Kochi
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* footer */}
-      <footer className="border-t border-orange-100 py-6">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 text-xs" style={{ color: "#9A7B6A" }}>
+      <footer className="py-6">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 text-xs" style={{ color: "#8C7060" }}>
           <span>GlowDerm Skin & Hair</span>
           <span>&copy; 2026</span>
         </div>
