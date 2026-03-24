@@ -25,11 +25,13 @@ type Tier = {
 
 /* ─── data ─────────────────────────────────────────── */
 
+const USD_TO_INR = 85;
+
 const TIERS: Tier[] = [
   {
     name: "Basic",
     usd: 200,
-    inr: 15_000,
+    inr: 200 * USD_TO_INR,
     netUsd: 157,
     delivery: "3 day",
     badge: null,
@@ -53,7 +55,7 @@ const TIERS: Tier[] = [
   {
     name: "Standard",
     usd: 500,
-    inr: 38_000,
+    inr: 500 * USD_TO_INR,
     netUsd: 400,
     delivery: "5 day",
     badge: "most popular",
@@ -76,7 +78,7 @@ const TIERS: Tier[] = [
   {
     name: "Premium",
     usd: 750,
-    inr: 58_000,
+    inr: 750 * USD_TO_INR,
     netUsd: 600,
     delivery: "7 day",
     badge: null,
@@ -97,7 +99,7 @@ const TIERS: Tier[] = [
   },
 ];
 
-const AMC = { usd: 20, inr: 1_500 };
+const AMC = { usd: 20, inr: 20 * USD_TO_INR };
 
 /* ─── helpers ──────────────────────────────────────── */
 
