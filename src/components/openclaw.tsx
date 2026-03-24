@@ -25,13 +25,20 @@ type Tier = {
 
 /* ─── data ─────────────────────────────────────────── */
 
-const USD_TO_INR = 85;
+const USD_TO_INR = 92;
+
+/** Round to nearest "clean" number: <1000→nearest 50, <10000→nearest 500, else nearest 1000 */
+function roundClean(n: number): number {
+  if (n < 1_000) return Math.ceil(n / 50) * 50;
+  if (n < 10_000) return Math.ceil(n / 500) * 500;
+  return Math.ceil(n / 1_000) * 1_000;
+}
 
 const TIERS: Tier[] = [
   {
     name: "Basic",
     usd: 200,
-    inr: 200 * USD_TO_INR,
+    inr: roundClean(200 * USD_TO_INR),
     netUsd: 157,
     delivery: "3 day",
     badge: null,
@@ -55,7 +62,7 @@ const TIERS: Tier[] = [
   {
     name: "Standard",
     usd: 500,
-    inr: 500 * USD_TO_INR,
+    inr: roundClean(500 * USD_TO_INR),
     netUsd: 400,
     delivery: "5 day",
     badge: "most popular",
@@ -78,7 +85,7 @@ const TIERS: Tier[] = [
   {
     name: "Premium",
     usd: 750,
-    inr: 750 * USD_TO_INR,
+    inr: roundClean(750 * USD_TO_INR),
     netUsd: 600,
     delivery: "7 day",
     badge: null,
@@ -99,7 +106,7 @@ const TIERS: Tier[] = [
   },
 ];
 
-const AMC = { usd: 20, inr: 20 * USD_TO_INR };
+const AMC = { usd: 20, inr: roundClean(20 * USD_TO_INR) };
 
 /* ─── helpers ──────────────────────────────────────── */
 
