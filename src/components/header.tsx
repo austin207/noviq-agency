@@ -4,10 +4,10 @@ import { BRAND, WHATSAPP_URL } from "@/lib/constants";
 import { useEffect, useState } from "react";
 
 const NAV_LINKS = [
-  { label: "Services", href: "#services" },
-  { label: "Process", href: "#process" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "OpenClaw", href: "#openclaw" },
+  { label: "Work", href: "/work" },
+  { label: "Services", href: "/#services" },
+  { label: "Pricing", href: "/#pricing" },
+  { label: "OpenClaw", href: "/#openclaw" },
 ];
 
 export function Header() {
