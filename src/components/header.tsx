@@ -28,11 +28,16 @@ export function Header() {
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <a
-          href="#"
-          className="text-lg font-semibold tracking-tight text-primary"
-        >
-          {BRAND}
+        <a href="#" className="flex items-center gap-2.5 text-primary">
+          <svg
+            viewBox="0 0 40 48"
+            fill="currentColor"
+            className="h-6 w-auto"
+            aria-hidden="true"
+          >
+            <path d="M0,48 V20 A20,20 0 0,1 40,20 V48 H30 V20 A10,10 0 0,0 10,20 V48 Z" />
+          </svg>
+          <span className="text-lg font-semibold tracking-tight">{BRAND}</span>
         </a>
 
         <nav className="hidden items-center gap-8 md:flex">
