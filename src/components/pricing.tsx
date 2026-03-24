@@ -32,8 +32,6 @@ const ADDONS = [
   { name: "Logo design", desc: "3 concepts, 2 revisions", price: 3_500, suffix: "" },
   { name: "WhatsApp Business API", desc: "Automated WhatsApp messaging", price: 4_000, suffix: "" },
   { name: "SEO audit report", desc: "Keyword & ranking analysis", price: 3_000, suffix: "" },
-  { name: "OpenClaw AI bot (Basic)", desc: "WhatsApp/Telegram AI assistant", price: 8_000, suffix: "" },
-  { name: "OpenClaw AI bot (Business)", desc: "Custom knowledge base + training", price: 15_000, suffix: "" },
   { name: "Custom business email (5 IDs)", desc: "you@yourbusiness.in", price: 1_500, suffix: "/yr" },
   { name: "Monthly content updates", desc: "1–2 page updates per month", price: 800, suffix: "/mo" },
 ];
