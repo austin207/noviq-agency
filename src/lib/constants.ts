@@ -1,7 +1,7 @@
 export const BRAND = "noviq";
 export const TAGLINE = "Web development studio";
 export const LOCATION = "Kochi, India";
-export const EMAIL = "hello@noviq.in";
+export const EMAIL = "hello@noviq.website";
 
 // Replace with actual WhatsApp number (with country code, no +)
 export const WHATSAPP_NUMBER = "919048281078";
