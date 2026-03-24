@@ -8,7 +8,7 @@ export default function SalonApp() {
   ];
 
   return (
-    <div className="min-h-dvh" style={{ background: "#1A1215", color: "#FAF5F7", fontFamily: "var(--font-outfit, system-ui)" }}>
+    <div className="no-scrollbar min-h-dvh" style={{ background: "#1A1215", color: "#FAF5F7", fontFamily: "var(--font-outfit, system-ui)" }}>
       {/* status bar */}
       <div className="flex items-center justify-between px-5 pt-3 pb-1 text-[10px]" style={{ color: "#9E8A91" }}>
         <span>9:41</span>

@@ -8,7 +8,7 @@ export default function FoodApp() {
   ];
 
   return (
-    <div className="min-h-dvh" style={{ background: "#0C0A09", color: "#FAFAF9", fontFamily: "var(--font-outfit, system-ui)" }}>
+    <div className="no-scrollbar min-h-dvh" style={{ background: "#0C0A09", color: "#FAFAF9", fontFamily: "var(--font-outfit, system-ui)" }}>
       {/* status bar */}
       <div className="flex items-center justify-between px-5 pt-3 pb-1 text-[10px]" style={{ color: "#A8A29E" }}>
         <span>9:41</span>

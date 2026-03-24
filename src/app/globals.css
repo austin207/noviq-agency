@@ -43,6 +43,18 @@ body::after {
   opacity: 0.4;
 }
 
+/* hide scrollbar for app demos inside phone frames */
+.no-scrollbar,
+.no-scrollbar * {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar,
+.no-scrollbar *::-webkit-scrollbar {
+  display: none;
+}
+
 ::selection {
   background: var(--color-accent);
   color: #0A0A0A;

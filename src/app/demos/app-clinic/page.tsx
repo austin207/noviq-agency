@@ -7,7 +7,7 @@ export default function ClinicApp() {
   const slots = ["9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "2:00", "2:30"];
 
   return (
-    <div className="min-h-dvh" style={{ background: "#F0FDF4", color: "#14532D", fontFamily: "var(--font-outfit, system-ui)" }}>
+    <div className="no-scrollbar min-h-dvh" style={{ background: "#F0FDF4", color: "#14532D", fontFamily: "var(--font-outfit, system-ui)" }}>
       {/* status bar */}
       <div className="flex items-center justify-between px-5 pt-3 pb-1 text-[10px]" style={{ color: "#6B8F71" }}>
         <span>9:41</span>

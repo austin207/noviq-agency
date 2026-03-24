@@ -9,7 +9,7 @@ export default function GroceryApp() {
   ];
 
   return (
-    <div className="min-h-dvh" style={{ background: "#FAFDF7", color: "#1A2E1A", fontFamily: "var(--font-outfit, system-ui)" }}>
+    <div className="no-scrollbar min-h-dvh" style={{ background: "#FAFDF7", color: "#1A2E1A", fontFamily: "var(--font-outfit, system-ui)" }}>
       {/* status bar */}
       <div className="flex items-center justify-between px-5 pt-3 pb-1 text-[10px]" style={{ color: "#6B8F6B" }}>
         <span>9:41</span>
