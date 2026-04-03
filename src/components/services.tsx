@@ -30,7 +30,7 @@ const SERVICES = [
     title: "AI Receptionist",
     description:
       "AI-powered front desk that answers calls, handles FAQs, qualifies leads, and books appointments - 24/7, zero missed calls.",
-    price: "From ₹8,000",
+    price: "From ₹18,000",
     span: "md:col-span-2",
   },
   {
@@ -38,7 +38,7 @@ const SERVICES = [
     title: "Automated Calls",
     description:
       "Outbound call automation for appointment reminders, order confirmations, and follow-ups. Reduce no-shows without manual effort.",
-    price: "From ₹12,000",
+    price: "From ₹15,000",
     span: "md:col-span-3",
   },
 ];

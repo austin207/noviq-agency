@@ -6,7 +6,14 @@ import { WHATSAPP_URL } from "@/lib/constants";
 
 /* ─── data ─────────────────────────────────────────── */
 
-type Category = "website" | "app" | "bundle" | "openclaw" | "all-in-one";
+type Category =
+  | "website"
+  | "app"
+  | "bundle"
+  | "openclaw"
+  | "ai-receptionist"
+  | "automated-calls"
+  | "all-in-one";
 
 const WEB_PACKAGES = [
   { name: "Starter", price: 10_000, desc: "5 pages, WhatsApp, Maps, contact form, 1 revision", delivery: "1-2 weeks" },
@@ -28,44 +35,42 @@ const BUNDLES = [
 ];
 
 const OPENCLAW_TIERS_PRICING = [
-  {
-    name: "Basic",
-    price: 19_000,
-    amc: 2_000,
-    delivery: "3 days",
-    badge: null,
-    desc: "Docker Compose, OpenClaw + SearXNG, 1 channel, 10 skills, morning cron",
-  },
-  {
-    name: "Standard",
-    price: 46_000,
-    amc: 2_000,
-    delivery: "5 days",
-    badge: "most popular",
-    desc: "3 channels, browser automation, 25 skills, Tailscale, backup scripts",
-  },
-  {
-    name: "Premium",
-    price: 69_000,
-    amc: 2_000,
-    delivery: "7 days",
-    badge: null,
-    desc: "Multi-agent routing, n8n integration, Docker sandbox, 30-day support",
-  },
+  { name: "Basic", price: 19_000, amc: 2_000, delivery: "3 days", badge: null, desc: "Docker Compose, OpenClaw + SearXNG, 1 channel, 10 skills, morning cron" },
+  { name: "Standard", price: 46_000, amc: 2_000, delivery: "5 days", badge: "most popular", desc: "3 channels, browser automation, 25 skills, Tailscale, backup scripts" },
+  { name: "Premium", price: 69_000, amc: 2_000, delivery: "7 days", badge: null, desc: "Multi-agent routing, n8n integration, Docker sandbox, 30-day support" },
 ];
 
+const AI_RECEPTIONIST_TIERS = [
+  { name: "Basic", setup: 18_000, monthly: 9_000, minutes: 200, overage: 25, badge: null, desc: "FAQ handling, call transfer, English/Malayalam, 1 phone number" },
+  { name: "Standard", setup: 30_000, monthly: 18_000, minutes: 500, overage: 20, badge: "most popular", desc: "Appointment booking, CRM integration, call logs, custom voice persona" },
+  { name: "Premium", setup: 50_000, monthly: 35_000, minutes: 2_000, overage: 15, badge: null, desc: "Multi-location, analytics dashboard, priority support, full customisation" },
+];
+
+const AUTOMATED_CALLS_TIERS = [
+  { name: "Basic", setup: 15_000, monthly: 8_000, calls: 300, overagePerCall: 20, badge: null, desc: "1 campaign, reminders/confirmations, retry logic, TRAI-compliant" },
+  { name: "Standard", setup: 22_000, monthly: 16_000, calls: 1_000, overagePerCall: 15, badge: "most popular", desc: "3 campaigns, custom scripts, call scheduling, reporting dashboard" },
+  { name: "Premium", setup: 35_000, monthly: 28_000, calls: 3_000, overagePerCall: 12, badge: null, desc: "Unlimited campaigns, full analytics, DND registry checks, priority support" },
+];
+
+// All-in-One: Business site + Android+iOS app + OpenClaw Standard + AI Receptionist Standard + Automated Calls Standard
+// Separate: 50K + 130K + 46K + 30K + 22K = 278K
 const ALL_IN_ONE = {
-  price: 200_000,
-  separate: 246_000,
-  saving: 46_000,
-  monthlyBase: 8_000,
+  price: 225_000,
+  separate: 278_000,
+  saving: 53_000,
   delivery: "12-16 weeks",
   includes: [
     "Business website (Next.js, ordering, accounts, Razorpay)",
     "Android + iOS Flutter app",
     "OpenClaw AI assistant (Standard tier)",
-    "AI Receptionist setup",
-    "Automated Calls setup",
+    "AI Receptionist setup (Standard - 500 min/mo)",
+    "Automated Calls setup (Standard - 1,000 calls/mo)",
+  ],
+  monthly: [
+    { label: "AI Receptionist Standard (500 min)", amount: 18_000 },
+    { label: "Automated Calls Standard (1,000 calls)", amount: 16_000 },
+    { label: "OpenClaw AMC", amount: 2_000 },
+    { label: "Website hosting & maintenance", amount: 1_500 },
   ],
 };
 
@@ -143,31 +148,60 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   return <h3 className="mb-4 text-[10px] font-medium uppercase tracking-[0.2em] text-muted">{children}</h3>;
 }
 
+function TierBadge({ text }: { text: string }) {
+  return (
+    <span className="rounded-full border border-accent/30 bg-accent/10 px-2.5 py-0.5 text-[10px] font-medium text-accent">
+      {text}
+    </span>
+  );
+}
+
 /* ─── steps ────────────────────────────────────────── */
 
 function StepCategory({ value, onChange }: { value: Category; onChange: (c: Category) => void }) {
-  const options: { key: Category; title: string; desc: string; badge?: string }[] = [
-    { key: "website", title: "Website only", desc: "Landing page, business site, or online store" },
-    { key: "app", title: "Mobile App", desc: "Android/iOS app (requires Business website backend)" },
-    { key: "bundle", title: "Website + App", desc: "Full package with bundle discount" },
-    { key: "openclaw", title: "OpenClaw AI Assistant", desc: "AI-powered WhatsApp/Telegram bot - deployed and managed for you", badge: "AI" },
-    { key: "all-in-one", title: "Everything", desc: "Website + App + OpenClaw + AI Receptionist + Automated Calls", badge: "best value" },
+  const groups: { label: string; items: { key: Category; title: string; desc: string; badge?: string }[] }[] = [
+    {
+      label: "Web & App",
+      items: [
+        { key: "website", title: "Website only", desc: "Landing page, business site, or online store" },
+        { key: "app", title: "Mobile App", desc: "Android/iOS app (requires Business website backend)" },
+        { key: "bundle", title: "Website + App", desc: "Full package with bundle discount" },
+      ],
+    },
+    {
+      label: "AI Services",
+      items: [
+        { key: "openclaw", title: "OpenClaw AI Assistant", desc: "AI-powered WhatsApp/Telegram bot - deployed and managed for you", badge: "AI" },
+        { key: "ai-receptionist", title: "AI Receptionist", desc: "24/7 inbound call handling - FAQ, booking, lead qualification", badge: "AI" },
+        { key: "automated-calls", title: "Automated Calls", desc: "Outbound reminders, confirmations, and follow-up campaigns", badge: "AI" },
+      ],
+    },
+    {
+      label: "Bundle",
+      items: [
+        { key: "all-in-one", title: "Everything", desc: "Website + App + OpenClaw + AI Receptionist + Automated Calls", badge: "best value" },
+      ],
+    },
   ];
+
   return (
-    <div className="flex flex-col gap-3">
-      {options.map((o) => (
-        <button key={o.key} onClick={() => onChange(o.key)}
-          className={`rounded-xl border p-5 text-left transition-all duration-200 ${value === o.key ? "border-accent/60 bg-accent/5" : "border-outline bg-surface hover:border-secondary/40"}`}>
-          <div className="flex items-center gap-3">
-            <span className="text-sm font-semibold">{o.title}</span>
-            {o.badge && (
-              <span className="rounded-full border border-accent/30 bg-accent/10 px-2.5 py-0.5 text-[10px] font-medium text-accent">
-                {o.badge}
-              </span>
-            )}
+    <div className="flex flex-col gap-6">
+      {groups.map((group) => (
+        <div key={group.label}>
+          <p className="mb-2 text-[10px] font-medium uppercase tracking-[0.2em] text-muted">{group.label}</p>
+          <div className="flex flex-col gap-2">
+            {group.items.map((o) => (
+              <button key={o.key} onClick={() => onChange(o.key)}
+                className={`rounded-xl border p-5 text-left transition-all duration-200 ${value === o.key ? "border-accent/60 bg-accent/5" : "border-outline bg-surface hover:border-secondary/40"}`}>
+                <div className="flex items-center gap-3">
+                  <span className="text-sm font-semibold">{o.title}</span>
+                  {o.badge && <TierBadge text={o.badge} />}
+                </div>
+                <span className="mt-1 block text-xs text-muted">{o.desc}</span>
+              </button>
+            ))}
           </div>
-          <span className="mt-1 block text-xs text-muted">{o.desc}</span>
-        </button>
+        </div>
       ))}
     </div>
   );
@@ -226,7 +260,7 @@ function StepBundlePackage({ selected, onSelect }: { selected: number; onSelect:
           className={`rounded-xl border p-5 text-left transition-all duration-200 ${selected === i ? "border-accent/60 bg-accent/5" : "border-outline bg-surface hover:border-secondary/40"}`}>
           <div className="flex items-center gap-3">
             <span className="text-sm font-semibold">{b.name}</span>
-            {b.badge && <span className="rounded-full border border-accent/30 bg-accent/10 px-2.5 py-0.5 text-[10px] font-medium text-accent">{b.badge}</span>}
+            {b.badge && <TierBadge text={b.badge} />}
           </div>
           <span className="mt-1 block text-2xl font-semibold tabular-nums tracking-tight">{inr(b.price)}</span>
           <span className="mt-1 block text-xs text-muted">{b.desc}</span>
@@ -247,11 +281,7 @@ function StepOpenClawTier({ selected, onSelect }: { selected: number; onSelect: 
           className={`rounded-xl border p-5 text-left transition-all duration-200 ${selected === i ? "border-accent/60 bg-accent/5" : "border-outline bg-surface hover:border-secondary/40"}`}>
           <div className="flex items-center gap-3">
             <span className="text-sm font-semibold">{tier.name}</span>
-            {tier.badge && (
-              <span className="rounded-full border border-accent/30 bg-accent/10 px-2.5 py-0.5 text-[10px] font-medium text-accent">
-                {tier.badge}
-              </span>
-            )}
+            {tier.badge && <TierBadge text={tier.badge} />}
           </div>
           <span className="mt-1 block text-2xl font-semibold tabular-nums tracking-tight">{inr(tier.price)}</span>
           <span className="mt-1 block text-xs text-muted">{tier.desc}</span>
@@ -264,15 +294,58 @@ function StepOpenClawTier({ selected, onSelect }: { selected: number; onSelect: 
   );
 }
 
+function StepAiReceptionistTier({ selected, onSelect }: { selected: number; onSelect: (i: number) => void }) {
+  return (
+    <div className="flex flex-col gap-3">
+      {AI_RECEPTIONIST_TIERS.map((tier, i) => (
+        <button key={tier.name} onClick={() => onSelect(i)}
+          className={`rounded-xl border p-5 text-left transition-all duration-200 ${selected === i ? "border-accent/60 bg-accent/5" : "border-outline bg-surface hover:border-secondary/40"}`}>
+          <div className="flex items-center gap-3">
+            <span className="text-sm font-semibold">{tier.name}</span>
+            {tier.badge && <TierBadge text={tier.badge} />}
+          </div>
+          <span className="mt-1 block text-2xl font-semibold tabular-nums tracking-tight">{inr(tier.setup)}</span>
+          <span className="mt-0.5 block text-sm font-medium text-accent">{inr(tier.monthly)}/mo &middot; {tier.minutes} min included</span>
+          <span className="mt-1 block text-xs text-muted">{tier.desc}</span>
+          <span className="mt-2 block text-[10px] text-muted">
+            Overage: {inr(tier.overage)}/min beyond included minutes
+          </span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function StepAutomatedCallsTier({ selected, onSelect }: { selected: number; onSelect: (i: number) => void }) {
+  return (
+    <div className="flex flex-col gap-3">
+      {AUTOMATED_CALLS_TIERS.map((tier, i) => (
+        <button key={tier.name} onClick={() => onSelect(i)}
+          className={`rounded-xl border p-5 text-left transition-all duration-200 ${selected === i ? "border-accent/60 bg-accent/5" : "border-outline bg-surface hover:border-secondary/40"}`}>
+          <div className="flex items-center gap-3">
+            <span className="text-sm font-semibold">{tier.name}</span>
+            {tier.badge && <TierBadge text={tier.badge} />}
+          </div>
+          <span className="mt-1 block text-2xl font-semibold tabular-nums tracking-tight">{inr(tier.setup)}</span>
+          <span className="mt-0.5 block text-sm font-medium text-accent">{inr(tier.monthly)}/mo &middot; {tier.calls.toLocaleString("en-IN")} calls included</span>
+          <span className="mt-1 block text-xs text-muted">{tier.desc}</span>
+          <span className="mt-2 block text-[10px] text-muted">
+            Overage: {inr(tier.overagePerCall)}/call beyond included
+          </span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
 function StepAllInOnePreview() {
+  const totalMonthly = ALL_IN_ONE.monthly.reduce((s, i) => s + i.amount, 0);
   return (
     <div>
       <div className="rounded-xl border border-accent/40 bg-accent/[0.03] p-6">
         <div className="mb-4 flex items-center gap-3">
           <span className="text-sm font-semibold">Complete Business Stack</span>
-          <span className="rounded-full border border-accent/30 bg-accent/10 px-2.5 py-0.5 text-[10px] font-medium text-accent">
-            save {inr(ALL_IN_ONE.saving)}
-          </span>
+          <TierBadge text={`save ${inr(ALL_IN_ONE.saving)}`} />
         </div>
         <span className="block text-3xl font-semibold tabular-nums tracking-tight">{inr(ALL_IN_ONE.price)}</span>
         <span className="mt-1 block text-xs text-muted">one-time setup &middot; {ALL_IN_ONE.delivery} delivery</span>
@@ -284,12 +357,24 @@ function StepAllInOnePreview() {
             </li>
           ))}
         </ul>
-        <p className="mt-5 text-xs text-muted">
-          + {inr(ALL_IN_ONE.monthlyBase)}/mo covers hosting, AI services AMC, and uptime monitoring. Instagram Reels can be added in the next step.
-        </p>
+      </div>
+      <div className="mt-4 rounded-xl border border-outline p-5">
+        <p className="mb-3 text-[10px] font-medium uppercase tracking-[0.2em] text-muted">Monthly after setup</p>
+        <div className="flex flex-col gap-2">
+          {ALL_IN_ONE.monthly.map((item) => (
+            <div key={item.label} className="flex justify-between text-sm">
+              <span className="text-secondary">{item.label}</span>
+              <span className="tabular-nums">{inr(item.amount)}/mo</span>
+            </div>
+          ))}
+        </div>
+        <div className="mt-3 flex justify-between border-t border-outline/50 pt-3 text-sm font-semibold">
+          <span className="text-accent">Total monthly</span>
+          <span className="tabular-nums text-accent">{inr(totalMonthly)}/mo</span>
+        </div>
       </div>
       <p className="mt-3 text-xs text-muted">
-        Separately this would cost {inr(ALL_IN_ONE.separate)}. Bundle saves you {inr(ALL_IN_ONE.saving)}.
+        Separately this would cost {inr(ALL_IN_ONE.separate)} setup. Bundle saves you {inr(ALL_IN_ONE.saving)}.
       </p>
     </div>
   );
@@ -356,7 +441,6 @@ function StepMaintenance({ amcIndex, setAmcIndex, domainCost, setDomainCost, dom
           </button>
         ))}
       </div>
-
       <div className="mt-8">
         <SectionLabel>Domain registration</SectionLabel>
         <div className="flex gap-2">
@@ -385,9 +469,10 @@ function StepMaintenance({ amcIndex, setAmcIndex, domainCost, setDomainCost, dom
 
 /* ─── quote ────────────────────────────────────────── */
 
-function StepQuote({ category, webIndex, appIndex, adminDash, bundleIndex, openClawIndex, addons, reels, amcIndex, domainCost, domainYears, quoteUrl, setStep }: {
+function StepQuote({ category, webIndex, appIndex, adminDash, bundleIndex, openClawIndex, aiRecepIndex, autoCallIndex, addons, reels, amcIndex, domainCost, domainYears, quoteUrl, setStep }: {
   category: Category; webIndex: number; appIndex: number; adminDash: boolean; bundleIndex: number;
-  openClawIndex: number; addons: Set<number>; reels: number; amcIndex: number;
+  openClawIndex: number; aiRecepIndex: number; autoCallIndex: number;
+  addons: Set<number>; reels: number; amcIndex: number;
   domainCost: number; domainYears: number; quoteUrl: string; setStep: (n: number) => void;
 }) {
   const oneTimeItems: { label: string; amount: number }[] = [];
@@ -409,9 +494,17 @@ function StepQuote({ category, webIndex, appIndex, adminDash, bundleIndex, openC
     const tier = OPENCLAW_TIERS_PRICING[openClawIndex];
     oneTimeItems.push({ label: `OpenClaw ${tier.name} setup`, amount: tier.price });
     monthlyItems.push({ label: "OpenClaw AMC", amount: tier.amc });
+  } else if (category === "ai-receptionist") {
+    const tier = AI_RECEPTIONIST_TIERS[aiRecepIndex];
+    oneTimeItems.push({ label: `AI Receptionist ${tier.name} setup`, amount: tier.setup });
+    monthlyItems.push({ label: `AI Receptionist (${tier.minutes} min/mo)`, amount: tier.monthly });
+  } else if (category === "automated-calls") {
+    const tier = AUTOMATED_CALLS_TIERS[autoCallIndex];
+    oneTimeItems.push({ label: `Automated Calls ${tier.name} setup`, amount: tier.setup });
+    monthlyItems.push({ label: `Automated Calls (${tier.calls.toLocaleString("en-IN")} calls/mo)`, amount: tier.monthly });
   } else if (category === "all-in-one") {
     oneTimeItems.push({ label: "Complete Business Stack bundle", amount: ALL_IN_ONE.price });
-    monthlyItems.push({ label: "Hosting + AI services maintenance", amount: ALL_IN_ONE.monthlyBase });
+    ALL_IN_ONE.monthly.forEach((item) => monthlyItems.push(item));
   }
 
   // Add-ons: legacy categories only
@@ -424,8 +517,9 @@ function StepQuote({ category, webIndex, appIndex, adminDash, bundleIndex, openC
     });
   }
 
-  // Reels: all except openclaw, and not content studio bundle
-  if (reels > 0 && category !== "openclaw" && !(category === "bundle" && bundleIndex === 3)) {
+  // Reels: all except openclaw + AI services, not content studio bundle
+  const reelCategories: Category[] = ["website", "app", "bundle", "all-in-one"];
+  if (reels > 0 && reelCategories.includes(category) && !(category === "bundle" && bundleIndex === 3)) {
     monthlyItems.push({ label: `Instagram Reels (${reels}/mo)`, amount: reels * REEL_PRICE });
   }
 
@@ -447,7 +541,6 @@ function StepQuote({ category, webIndex, appIndex, adminDash, bundleIndex, openC
 
   return (
     <div className="flex flex-col gap-4">
-      {/* one-time */}
       <div className="rounded-xl border border-outline p-5">
         <SectionLabel>One-time payment</SectionLabel>
         <div className="flex flex-col gap-2.5">
@@ -464,7 +557,6 @@ function StepQuote({ category, webIndex, appIndex, adminDash, bundleIndex, openC
         </div>
       </div>
 
-      {/* monthly */}
       {monthlyTotal > 0 && (
         <div className="rounded-xl border border-outline p-5">
           <SectionLabel>Monthly recurring</SectionLabel>
@@ -483,7 +575,6 @@ function StepQuote({ category, webIndex, appIndex, adminDash, bundleIndex, openC
         </div>
       )}
 
-      {/* yearly */}
       {yearlyTotal > 0 && (
         <div className="rounded-xl border border-outline p-5">
           <SectionLabel>Yearly charges</SectionLabel>
@@ -496,7 +587,6 @@ function StepQuote({ category, webIndex, appIndex, adminDash, bundleIndex, openC
         </div>
       )}
 
-      {/* payment terms */}
       <div className="rounded-xl border border-outline p-5">
         <SectionLabel>Payment terms</SectionLabel>
         <div className="flex flex-col gap-2.5 text-sm">
@@ -506,7 +596,6 @@ function StepQuote({ category, webIndex, appIndex, adminDash, bundleIndex, openC
         </div>
       </div>
 
-      {/* actions */}
       <div className="grid grid-cols-2 gap-3">
         <button onClick={() => setStep(0)} className="rounded-xl border border-outline py-3.5 text-sm font-medium text-primary transition-colors hover:bg-surface">&larr; Edit</button>
         <a href={quoteUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 rounded-xl border border-outline py-3.5 text-sm font-medium text-primary transition-colors hover:bg-surface">
@@ -549,9 +638,19 @@ const STEP_TITLES: Record<Category, { title: string; sub: string }[]> = {
     { title: "OpenClaw AI Assistant", sub: "Done-for-you AI on WhatsApp or Telegram - pick a tier" },
     { title: "Your quote", sub: "Full breakdown of what you'll pay" },
   ],
+  "ai-receptionist": [
+    { title: "What do you need?", sub: "Choose your project type" },
+    { title: "AI Receptionist", sub: "24/7 inbound call handling - FAQ, booking, lead qualification" },
+    { title: "Your quote", sub: "Full breakdown of what you'll pay" },
+  ],
+  "automated-calls": [
+    { title: "What do you need?", sub: "Choose your project type" },
+    { title: "Automated Calls", sub: "Outbound reminders, confirmations, and follow-up campaigns" },
+    { title: "Your quote", sub: "Full breakdown of what you'll pay" },
+  ],
   "all-in-one": [
     { title: "What do you need?", sub: "Choose your project type" },
-    { title: "Complete Business Stack", sub: "Every Noviq service bundled - save \u20b946,000" },
+    { title: "Complete Business Stack", sub: "Every Noviq service bundled - save \u20b953,000 on setup" },
     { title: "Instagram Reels?", sub: "\u20b9950 per Reel (~$10) - AI-assisted production" },
     { title: "Your quote", sub: "Full breakdown of what you'll pay" },
   ],
@@ -566,7 +665,9 @@ export function Pricing() {
   const [appIndex, setAppIndex] = useState(0);
   const [adminDash, setAdminDash] = useState(false);
   const [bundleIndex, setBundleIndex] = useState(1);
-  const [openClawIndex, setOpenClawIndex] = useState(1); // default Standard
+  const [openClawIndex, setOpenClawIndex] = useState(1);
+  const [aiRecepIndex, setAiRecepIndex] = useState(1);
+  const [autoCallIndex, setAutoCallIndex] = useState(1);
   const [reels, setReels] = useState(0);
   const [addons, setAddons] = useState<Set<number>>(new Set());
   const [amcIndex, setAmcIndex] = useState(0);
@@ -597,19 +698,30 @@ export function Pricing() {
       const t = OPENCLAW_TIERS_PRICING[openClawIndex];
       lines.push(`OpenClaw ${t.name} setup - ${inr(t.price)}`);
       lines.push(`OpenClaw AMC - ${inr(t.amc)}/mo`);
+    } else if (category === "ai-receptionist") {
+      const t = AI_RECEPTIONIST_TIERS[aiRecepIndex];
+      lines.push(`AI Receptionist ${t.name} setup - ${inr(t.setup)}`);
+      lines.push(`AI Receptionist monthly (${t.minutes} min) - ${inr(t.monthly)}/mo`);
+    } else if (category === "automated-calls") {
+      const t = AUTOMATED_CALLS_TIERS[autoCallIndex];
+      lines.push(`Automated Calls ${t.name} setup - ${inr(t.setup)}`);
+      lines.push(`Automated Calls monthly (${t.calls} calls) - ${inr(t.monthly)}/mo`);
     } else if (category === "all-in-one") {
       lines.push(`All-in-One Bundle - ${inr(ALL_IN_ONE.price)}`);
-      lines.push(`Monthly maintenance - ${inr(ALL_IN_ONE.monthlyBase)}/mo`);
+      ALL_IN_ONE.monthly.forEach((item) => lines.push(`${item.label} - ${inr(item.amount)}/mo`));
     }
     if (category === "website" || category === "app" || category === "bundle") {
       addons.forEach((i) => { const a = ADDONS[i]; lines.push(`Add-on: ${a.name} - ${inr(a.price)}${a.suffix}`); });
       if (AMC_PLANS[amcIndex].price > 0) lines.push(`AMC: ${AMC_PLANS[amcIndex].name} - ${inr(AMC_PLANS[amcIndex].price)}/mo`);
     }
-    if (reels > 0 && category !== "openclaw") lines.push(`Reels: ${reels}/mo - ${inr(reels * REEL_PRICE)}/mo`);
+    if (reels > 0 && (category === "website" || category === "app" || category === "bundle" || category === "all-in-one")) {
+      lines.push(`Reels: ${reels}/mo - ${inr(reels * REEL_PRICE)}/mo`);
+    }
     return WHATSAPP_URL.includes("wa.me") ? `${WHATSAPP_URL.split("?")[0]}?text=${encodeURIComponent(lines.join("\n"))}` : "#contact";
-  }, [category, webIndex, appIndex, adminDash, bundleIndex, openClawIndex, addons, reels, amcIndex]);
+  }, [category, webIndex, appIndex, adminDash, bundleIndex, openClawIndex, aiRecepIndex, autoCallIndex, addons, reels, amcIndex]);
 
   const legacyCat = category === "website" || category === "app" || category === "bundle";
+  const shortCat = category === "openclaw" || category === "ai-receptionist" || category === "automated-calls";
 
   return (
     <section id="pricing" className="py-24 sm:py-32">
@@ -632,23 +744,25 @@ export function Pricing() {
           <div className="mt-8">
             {step === 0 && <StepCategory value={category} onChange={handleCategoryChange} />}
 
-            {/* legacy flows */}
+            {/* legacy: website / app / bundle */}
             {step === 1 && category === "website" && <StepWebPackage selected={webIndex} onSelect={setWebIndex} />}
             {step === 1 && category === "app" && <StepAppPackage selected={appIndex} adminDash={adminDash} onSelect={setAppIndex} onToggleAdmin={() => setAdminDash(!adminDash)} />}
             {step === 1 && category === "bundle" && <StepBundlePackage selected={bundleIndex} onSelect={setBundleIndex} />}
             {step === 2 && legacyCat && <StepAddons selected={addons} onToggle={toggleAddon} />}
             {step === 3 && legacyCat && <StepReels count={reels} onChange={setReels} />}
             {step === 4 && legacyCat && <StepMaintenance amcIndex={amcIndex} setAmcIndex={setAmcIndex} domainCost={domainCost} setDomainCost={setDomainCost} domainYears={domainYears} setDomainYears={setDomainYears} />}
-            {step === 5 && legacyCat && <StepQuote category={category} webIndex={webIndex} appIndex={appIndex} adminDash={adminDash} bundleIndex={bundleIndex} openClawIndex={openClawIndex} addons={addons} reels={reels} amcIndex={amcIndex} domainCost={domainCost} domainYears={domainYears} quoteUrl={quoteUrl} setStep={setStep} />}
+            {step === 5 && legacyCat && <StepQuote category={category} webIndex={webIndex} appIndex={appIndex} adminDash={adminDash} bundleIndex={bundleIndex} openClawIndex={openClawIndex} aiRecepIndex={aiRecepIndex} autoCallIndex={autoCallIndex} addons={addons} reels={reels} amcIndex={amcIndex} domainCost={domainCost} domainYears={domainYears} quoteUrl={quoteUrl} setStep={setStep} />}
 
-            {/* openclaw flow */}
+            {/* short AI flows: openclaw / ai-receptionist / automated-calls (3 steps each) */}
             {step === 1 && category === "openclaw" && <StepOpenClawTier selected={openClawIndex} onSelect={setOpenClawIndex} />}
-            {step === 2 && category === "openclaw" && <StepQuote category={category} webIndex={webIndex} appIndex={appIndex} adminDash={adminDash} bundleIndex={bundleIndex} openClawIndex={openClawIndex} addons={addons} reels={reels} amcIndex={amcIndex} domainCost={domainCost} domainYears={domainYears} quoteUrl={quoteUrl} setStep={setStep} />}
+            {step === 1 && category === "ai-receptionist" && <StepAiReceptionistTier selected={aiRecepIndex} onSelect={setAiRecepIndex} />}
+            {step === 1 && category === "automated-calls" && <StepAutomatedCallsTier selected={autoCallIndex} onSelect={setAutoCallIndex} />}
+            {step === 2 && shortCat && <StepQuote category={category} webIndex={webIndex} appIndex={appIndex} adminDash={adminDash} bundleIndex={bundleIndex} openClawIndex={openClawIndex} aiRecepIndex={aiRecepIndex} autoCallIndex={autoCallIndex} addons={addons} reels={reels} amcIndex={amcIndex} domainCost={domainCost} domainYears={domainYears} quoteUrl={quoteUrl} setStep={setStep} />}
 
-            {/* all-in-one flow */}
+            {/* all-in-one (4 steps) */}
             {step === 1 && category === "all-in-one" && <StepAllInOnePreview />}
             {step === 2 && category === "all-in-one" && <StepReels count={reels} onChange={setReels} />}
-            {step === 3 && category === "all-in-one" && <StepQuote category={category} webIndex={webIndex} appIndex={appIndex} adminDash={adminDash} bundleIndex={bundleIndex} openClawIndex={openClawIndex} addons={addons} reels={reels} amcIndex={amcIndex} domainCost={domainCost} domainYears={domainYears} quoteUrl={quoteUrl} setStep={setStep} />}
+            {step === 3 && category === "all-in-one" && <StepQuote category={category} webIndex={webIndex} appIndex={appIndex} adminDash={adminDash} bundleIndex={bundleIndex} openClawIndex={openClawIndex} aiRecepIndex={aiRecepIndex} autoCallIndex={autoCallIndex} addons={addons} reels={reels} amcIndex={amcIndex} domainCost={domainCost} domainYears={domainYears} quoteUrl={quoteUrl} setStep={setStep} />}
           </div>
 
           {step < totalSteps - 1 && <NavButtons step={step} setStep={setStep} total={totalSteps} />}
