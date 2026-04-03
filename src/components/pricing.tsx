@@ -171,14 +171,14 @@ function StepCategory({ value, onChange }: { value: Category; onChange: (c: Cate
     {
       label: "AI Services",
       items: [
+        { key: "openclaw", title: "OpenClaw AI Assistant", desc: "AI-powered WhatsApp/Telegram bot - deployed and managed for you", badge: "AI" },
         { key: "ai-receptionist", title: "AI Receptionist", desc: "24/7 inbound call handling - FAQ, booking, lead qualification", badge: "AI" },
         { key: "automated-calls", title: "Automated Calls", desc: "Outbound reminders, confirmations, and follow-up campaigns", badge: "AI" },
       ],
     },
     {
-      label: "Featured",
+      label: "Bundle",
       items: [
-        { key: "openclaw", title: "OpenClaw AI Assistant", desc: "AI-powered WhatsApp/Telegram bot - deployed and managed for you", badge: "featured" },
         { key: "all-in-one", title: "Everything", desc: "Website + App + OpenClaw + AI Receptionist + Automated Calls", badge: "best value" },
       ],
     },
