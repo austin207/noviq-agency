@@ -171,14 +171,14 @@ function StepCategory({ value, onChange }: { value: Category; onChange: (c: Cate
     {
       label: "AI Services",
       items: [
-        { key: "openclaw", title: "OpenClaw AI Assistant", desc: "AI-powered WhatsApp/Telegram bot - deployed and managed for you", badge: "AI" },
         { key: "ai-receptionist", title: "AI Receptionist", desc: "24/7 inbound call handling - FAQ, booking, lead qualification", badge: "AI" },
         { key: "automated-calls", title: "Automated Calls", desc: "Outbound reminders, confirmations, and follow-up campaigns", badge: "AI" },
       ],
     },
     {
-      label: "Bundle",
+      label: "Featured",
       items: [
+        { key: "openclaw", title: "OpenClaw AI Assistant", desc: "AI-powered WhatsApp/Telegram bot - deployed and managed for you", badge: "featured" },
         { key: "all-in-one", title: "Everything", desc: "Website + App + OpenClaw + AI Receptionist + Automated Calls", badge: "best value" },
       ],
     },
@@ -347,7 +347,11 @@ function StepAllInOnePreview() {
           <span className="text-sm font-semibold">Complete Business Stack</span>
           <TierBadge text={`save ${inr(ALL_IN_ONE.saving)}`} />
         </div>
-        <span className="block text-3xl font-semibold tabular-nums tracking-tight">{inr(ALL_IN_ONE.price)}</span>
+        <div className="flex items-baseline gap-3">
+          <span className="text-3xl font-semibold tabular-nums tracking-tight">{inr(ALL_IN_ONE.price)}</span>
+          <span className="text-base tabular-nums text-muted line-through">{inr(ALL_IN_ONE.separate)}</span>
+          <span className="text-sm font-medium text-accent">{Math.round((ALL_IN_ONE.saving / ALL_IN_ONE.separate) * 100)}% off</span>
+        </div>
         <span className="mt-1 block text-xs text-muted">one-time setup &middot; {ALL_IN_ONE.delivery} delivery</span>
         <ul className="mt-5 flex flex-col gap-2.5">
           {ALL_IN_ONE.includes.map((item) => (
